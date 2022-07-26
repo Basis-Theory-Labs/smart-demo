@@ -1,13 +1,13 @@
 import {Button, Card, CardContent, CardHeader, TextField} from "@mui/material";
 import {FormEvent, useState} from "react";
 
-export const Form = () => {
+export const OriginalForm = () => {
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
 
-    const submit = (event: FormEvent) => {
+    const submit = async (event: FormEvent) => {
         event.preventDefault();
-        fetch('/api/users', {
+        await fetch('/api/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -17,6 +17,8 @@ export const Form = () => {
                 phoneNumber
             })
         })
+        setName('');
+        setPhoneNumber('')
     }
 
     return <Card variant="outlined">

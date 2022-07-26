@@ -1,5 +1,4 @@
 import loki from 'lokijs'
-import {IAdapter, IParsedQueryParams, TPaginationData} from "@premieroctet/next-crud";
 
 const db = new loki('phone-collector.db');
 const users = db.addCollection('users', {
@@ -11,7 +10,8 @@ users.on('insert', doc => {
 });
 
 users.insert({
-    name: 'Drewsue Webuino'
+    name: 'Drewsue Webuino',
+    phoneNumber: '555-123-5691'
 });
 
 export { users };

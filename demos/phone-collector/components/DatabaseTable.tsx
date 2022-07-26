@@ -44,7 +44,7 @@ export const DatabaseTable = () => {
                                 {user.name}
                             </TableCell>
                             <TableCell>
-
+                                {user.phoneNumber}
                             </TableCell>
                         </TableRow>
                     ))}
