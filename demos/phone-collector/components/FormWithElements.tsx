@@ -37,14 +37,19 @@ export const FormWithElements = () => {
                            onChange={e => setName(e.target.value)}/>
                 <Box sx={theme => ({
                     mt: 1,
-                    py: 1,
+                    py: 1.06,
                     px: 1.75,
                     borderRadius: 1,
                     border: `1px solid rgba(0,0,0,0.25)`
                 })}>
 
                     <TextElement id="phoneNumber" placeholder="Phone Number" style={{
+                        fonts: [
+                            'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap'
+                        ],
                         base: {
+                            fontFamily: "'Roboto'",
+                            padding: 0,
                             "::placeholder": {
                                 color: 'rgba(0, 0, 0, 0.35)'
                             }
