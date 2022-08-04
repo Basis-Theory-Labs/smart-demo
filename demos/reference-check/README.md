@@ -2,7 +2,7 @@
 
 A company is doing reference checks for drivers. They have an existing form that takes the name and phone number for the driver. But they find out that the phone number is now considered PII and they aren’t able to store it, so they need a solution that will ensure their application does not touch the data.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/___YOUR_PATH___)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Basis-Theory-Labs/smart-demo/tree/master/demos/reference-check)
 
 ## Pages
 
