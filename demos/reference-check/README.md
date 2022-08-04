@@ -6,8 +6,7 @@ A company is doing reference checks for drivers. They have an existing form that
 
 ## Pages
 
-### Index (/)
-
+### `/` (index)
 
 Shows the original driver registration form, featuring a "Name" and a masked "Phone Number" input; and how the captured data is stored in plain text in the database.
 
@@ -15,7 +14,7 @@ Makes a `POST /api/drivers` call to create a new `Driver` record in the database
 
 Relevant source code: [components/OriginalForm.tsx](components/OriginalForm.tsx)
 
-### With Elements (/with-elements)
+### `/with-elements`
 
 Shows the original form but the "Phone Number" input is replaced with a `TextElement`.
 
@@ -23,5 +22,5 @@ Tokenizes the "Phone Number" and passes the token id as a value to the `POST /ap
 
 Relevant source code: [components/FormWithElements.tsx](components/FormWithElements.tsx)
 
-> To enable format preserving alias, uncomment the line where says `'{{ data | alias_preserve_format }}`
+> To enable format preserving alias, uncomment the line where says `'{{ data | alias_preserve_format }}'`
 
