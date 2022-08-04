@@ -36,7 +36,7 @@ jobs:
         uses: thollander/actions-comment-pull-request@v1
         with:
           message: |
-            [:link: Preview ${{ matrix.demo }}](https://stackblitz.com/github/${{ github.repository }}/tree/${{ github.head_ref }}/demos/${{ matrix.demo }})
+            :link: [Preview ${{ matrix.demo }} demo](https://stackblitz.com/github/${{ github.repository }}/tree/${{ github.head_ref }}/demos/${{ matrix.demo }})
           comment_includes: 'Preview ${{ matrix.demo }}'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
