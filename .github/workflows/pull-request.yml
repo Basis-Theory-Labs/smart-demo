@@ -32,6 +32,15 @@ jobs:
     env:
       HUSKY: 0
     steps:
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: |
+            :link: Preview ${{ matrix.demo }} 
+            https://stackblitz.com/github/${{ github.repository }}/tree/${{ github.head_ref }}/demos/${{ matrix.demo }}
+          comment_includes: 'Preview ${{ matrix.demo }}'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Checkout repo
         uses: actions/checkout@v3
 
