@@ -10,12 +10,12 @@ import {
   TableRow,
 } from '@mui/material';
 import useSWR from 'swr';
-import type { Driver } from '../types';
+import type { Driver } from '@/types';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export const DatabaseTable = () => {
-  const { data } = useSWR<Driver[]>('/api/users', fetcher, {
+  const { data } = useSWR<Driver[]>('/api/drivers', fetcher, {
     refreshInterval: 100,
   });
 
