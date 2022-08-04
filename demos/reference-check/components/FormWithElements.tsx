@@ -22,7 +22,7 @@ export const FormWithElements = () => {
       data: phoneNumber,
     });
 
-    await fetch('/api/users', {
+    await fetch('/api/drivers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
