@@ -1,39 +1,66 @@
-import {Button, Card, CardContent, CardHeader, TextField} from "@mui/material";
-import {FormEvent, useState} from "react";
+import React, { FormEvent, useState } from 'react';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  TextField,
+} from '@mui/material';
 
 export const OriginalForm = () => {
-    const [name, setName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+  const [name, setName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
-    const submit = async (event: FormEvent) => {
-        event.preventDefault();
-        await fetch('/api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name,
-                phoneNumber
-            })
-        })
-        setName('');
-        setPhoneNumber('')
-    }
+  const submit = async (event: FormEvent) => {
+    event.preventDefault();
+    await fetch('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        phoneNumber,
+      }),
+    });
+    setName('');
+    setPhoneNumber('');
+  };
 
-    return <Card variant="outlined">
-        <CardHeader title="Your Application"/>
-        <CardContent>
-            <form onSubmit={submit}>
-
-            <TextField placeholder="Name" size="small" fullWidth required value={name}
-                       onChange={e => setName(e.target.value)}/>
-            <TextField placeholder="Phone Number" size="small" fullWidth required sx={{
-                mt: 1
-            }} value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)}/>
-            <Button type="submit" color="primary" variant="contained" sx={{mt: 2}}>Submit</Button>
-            </form>
-        </CardContent>
+  return (
+    <Card variant="outlined">
+      <CardHeader title="Your Application" />
+      <CardContent>
+        <form onSubmit={submit}>
+          <TextField
+            fullWidth
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
+            required
+            size="small"
+            value={name}
+          />
+          <TextField
+            fullWidth
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            placeholder="Phone Number"
+            required
+            size="small"
+            sx={{
+              mt: 1,
+            }}
+            value={phoneNumber}
+          />
+          <Button
+            color="primary"
+            sx={{ mt: 2 }}
+            type="submit"
+            variant="contained"
+          >
+            {'Submit'}
+          </Button>
+        </form>
+      </CardContent>
     </Card>
-
-}
+  );
+};

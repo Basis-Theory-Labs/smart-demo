@@ -1,19 +1,18 @@
-import type { NextPage } from 'next'
-import {Grid} from "@mui/material";
-import {DatabaseTable} from "../components/DatabaseTable";
-import {OriginalForm} from "../components/OriginalForm";
+import React from 'react';
+import { Grid } from '@mui/material';
+import type { NextPage } from 'next';
+import { DatabaseTable } from '../components/DatabaseTable';
+import { OriginalForm } from '../components/OriginalForm';
 
-const Home: NextPage = () => {
-  return (
-    <Grid container spacing={2} direction="column" justifyContent="center">
-        <Grid item>
-            <OriginalForm/>
-        </Grid>
-        <Grid item>
-            <DatabaseTable />
-        </Grid>
+const Home: NextPage = () => (
+  <Grid container direction="column" justifyContent="center" spacing={2}>
+    <Grid item>
+      <OriginalForm />
     </Grid>
-  )
-}
+    <Grid item>
+      <DatabaseTable />
+    </Grid>
+  </Grid>
+);
 
 export default Home;
