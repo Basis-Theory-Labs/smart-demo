@@ -10,7 +10,7 @@ export const FormWithElements = () => {
         event.preventDefault();
         const phoneNumber = bt?.getElement('phoneNumber');
         const token  = await bt?.tokens.create({
-            id: '{{ data | alias_preserve_format }}',
+            // id: '{{ data | alias_preserve_format }}',
             type: 'token',
             data: phoneNumber
         });
