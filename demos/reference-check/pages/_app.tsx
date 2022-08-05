@@ -2,18 +2,16 @@ import React from 'react';
 import {
   Box,
   Container,
-  createTheme,
   CssBaseline,
   Link,
   ThemeProvider,
 } from '@mui/material';
 import type { AppProps } from 'next/app';
 import NextLink from 'next/link';
-
-const theme = createTheme({});
+import { blissDark } from '@/components/theme';
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={blissDark}>
     <CssBaseline />
     <Container>
       <Box display="flex" p={1}>

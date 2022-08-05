@@ -1,11 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  TextField,
-} from '@mui/material';
+import { Button, TextField } from '@mui/material';
 
 export const OriginalForm = () => {
   const [name, setName] = useState('');
@@ -28,39 +22,30 @@ export const OriginalForm = () => {
   };
 
   return (
-    <Card variant="outlined">
-      <CardHeader title="Your Application" />
-      <CardContent>
-        <form onSubmit={submit}>
-          <TextField
-            fullWidth
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
-            required
-            size="small"
-            value={name}
-          />
-          <TextField
-            fullWidth
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder="Phone Number"
-            required
-            size="small"
-            sx={{
-              mt: 1,
-            }}
-            value={phoneNumber}
-          />
-          <Button
-            color="primary"
-            sx={{ mt: 2 }}
-            type="submit"
-            variant="contained"
-          >
-            {'Submit'}
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+    <form onSubmit={submit}>
+      <TextField
+        fullWidth
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Name"
+        required
+        size="small"
+        sx={{ mt: 2 }}
+        value={name}
+      />
+      <TextField
+        fullWidth
+        onChange={(e) => setPhoneNumber(e.target.value)}
+        placeholder="Phone Number"
+        required
+        size="small"
+        sx={{
+          mt: 1,
+        }}
+        value={phoneNumber}
+      />
+      <Button color="primary" sx={{ mt: 2 }} type="submit" variant="contained">
+        {'Submit'}
+      </Button>
+    </form>
   );
 };

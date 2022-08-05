@@ -37,7 +37,7 @@ export const FormWithElements = () => {
   };
 
   return (
-    <Card variant="outlined">
+    <Card>
       <CardHeader title="Your Application" />
       <CardContent>
         <form onSubmit={submit}>
