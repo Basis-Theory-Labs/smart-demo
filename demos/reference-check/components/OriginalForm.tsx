@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { Button, Input, TextField } from '@mui/material';
+import { MaskedTextField } from '@/components/MaskedTextField';
 
 export const OriginalForm = () => {
   const [name, setName] = useState('');
@@ -33,6 +34,12 @@ export const OriginalForm = () => {
         value={name}
       />
       <TextField
+        InputProps={{
+          inputComponent: MaskedTextField as any,
+          inputProps: {
+            mask: '(#00) 000-0000',
+          },
+        }}
         fullWidth
         onChange={(e) => setPhoneNumber(e.target.value)}
         placeholder="Phone Number"

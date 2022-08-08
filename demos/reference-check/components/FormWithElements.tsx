@@ -1,11 +1,12 @@
 import React, { FormEvent, useState } from 'react';
 import { TextElement, useBasisTheory } from '@basis-theory/basis-theory-react';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, useTheme } from '@mui/material';
 import { INTER_FONT } from '@/components/constants';
 
 export const FormWithElements = () => {
   const [name, setName] = useState('');
   const { bt } = useBasisTheory();
+  const theme = useTheme();
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
@@ -52,10 +53,27 @@ export const FormWithElements = () => {
       >
         <TextElement
           id="phoneNumber"
+          mask={[
+            '(',
+            /\d/u,
+            /\d/u,
+            /\d/u,
+            ')',
+            ' ',
+            /\d/u,
+            /\d/u,
+            /\d/u,
+            '-',
+            /\d/u,
+            /\d/u,
+            /\d/u,
+            /\d/u,
+          ]}
           placeholder="Phone Number"
           style={{
             fonts: [INTER_FONT],
             base: {
+              color: theme.palette.text.primary,
               fontFamily: "'Inter', sans-serif",
               padding: 0,
               '::placeholder': {

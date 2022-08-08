@@ -18,17 +18,17 @@ const seedDrivers = () => {
 
   drivers.insert({
     name: 'Charlie Conway',
-    phoneNumber: '650-555-1212',
+    phoneNumber: '(650) 555-1212',
   } as Driver);
 
   drivers.insert({
     name: 'Adam Banks',
-    phoneNumber: '415-444-3131',
+    phoneNumber: '(415) 444-3131',
   } as Driver);
 
   drivers.insert({
     name: 'Greg Goldberg',
-    phoneNumber: '212-333-1515',
+    phoneNumber: '(212) 333-1515',
   } as Driver);
 };
 
