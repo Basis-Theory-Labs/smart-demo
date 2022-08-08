@@ -8,6 +8,7 @@ import {
   ThemeProvider,
   Typography,
 } from '@mui/material';
+import Image from 'next/image';
 import { yourApplication } from './theme';
 
 const Circle = styled('div')(({ theme }) => ({
@@ -47,7 +48,13 @@ export const ApplicationPanel = ({ children }: PropsWithChildren) => (
         <Typography color="text.secondary" variant="subtitle2">
           {'Your Application'}
         </Typography>
-        <Circle />
+        <Image
+          alt="Company Logo"
+          height="16"
+          src="https://assets.website-files.com/605106363eeeec578e10aac6/60b65c8850078a3919b8580d_favi32.png"
+          style={{ opacity: '0.5' }}
+          width="16"
+        />
       </Box>
       <CardContent>
         <Container maxWidth="sm">

@@ -4,8 +4,9 @@ import {
   BasisTheoryProvider,
 } from '@basis-theory/basis-theory-react';
 import { Grid } from '@mui/material';
-import { DatabaseTable } from '../components/DatabaseTable';
-import { FormWithElements } from '../components/FormWithElements';
+import { ApplicationPanel } from '@/components/ApplicationPanel';
+import { DatabaseTable } from '@/components/DatabaseTable';
+import { FormWithElements } from '@/components/FormWithElements';
 
 const ELEMENTS_API_KEY = 'key_XVB48UzHJ57TdPtmLhJa9e';
 
@@ -18,7 +19,9 @@ const WithElements = () => {
     <BasisTheoryProvider bt={bt}>
       <Grid container direction="column" justifyContent="center" spacing={2}>
         <Grid item>
-          <FormWithElements />
+          <ApplicationPanel>
+            <FormWithElements />
+          </ApplicationPanel>
         </Grid>
         <Grid item>
           <DatabaseTable />

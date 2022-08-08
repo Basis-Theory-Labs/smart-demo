@@ -10,6 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from '@mui/material';
 import useSWR from 'swr';
 import type { Driver } from '@/types';
@@ -17,7 +18,17 @@ import type { Driver } from '@/types';
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const TableHeadPaper = ({ ...props }) => (
-  <Paper component="thead" elevation={2} {...props} />
+  <Paper
+    component="thead"
+    elevation={2}
+    sx={{
+      border: 'none',
+      th: {
+        color: 'text.secondary',
+      },
+    }}
+    {...props}
+  />
 );
 
 export const DatabaseTable = () => {
@@ -40,10 +51,19 @@ export const DatabaseTable = () => {
             </TableHead>
             <TableBody>
               {data?.map?.((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.id}</TableCell>
-                  <TableCell>{user.name}</TableCell>
-                  <TableCell>{user.phoneNumber}</TableCell>
+                <TableRow
+                  key={user.id}
+                  sx={{ td: { color: 'text.secondary' } }}
+                >
+                  <TableCell>
+                    <Typography variant="code">{user.id}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="code">{user.name}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="code">{user.phoneNumber}</Typography>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

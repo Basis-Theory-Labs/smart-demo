@@ -1,23 +1,19 @@
 import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
+import {
+  INTER_FONT,
+  OUTFIT_FONT,
+  SOURCE_CODE_PRO_FONT,
+} from '@/components/constants';
 
 class MyDocument extends Document {
   public render(): JSX.Element {
     return (
       <Html lang="en">
         <Head>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-            rel="stylesheet"
-          />
+          <link href={SOURCE_CODE_PRO_FONT} rel="stylesheet" />
+          <link href={OUTFIT_FONT} rel="stylesheet" />
+          <link href={INTER_FONT} rel="stylesheet" />
         </Head>
         <body>
           <Main />
