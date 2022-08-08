@@ -1,7 +1,8 @@
 import React, { FormEvent, useState } from 'react';
 import { TextElement, useBasisTheory } from '@basis-theory/basis-theory-react';
 import { Box, Button, TextField, useTheme } from '@mui/material';
-import { INTER_FONT } from '@/components/constants';
+import { INTER_FONT, PHONE_NUMBER_MASK } from '@/components/constants';
+import { ttl } from '@/components/utils';
 
 export const FormWithElements = () => {
   const [name, setName] = useState('');
@@ -15,6 +16,7 @@ export const FormWithElements = () => {
       // id: '{{ data | alias_preserve_format }}',
       type: 'token',
       data: phoneNumber,
+      expiresAt: ttl(),
     });
 
     await fetch('/api/drivers', {
@@ -53,31 +55,16 @@ export const FormWithElements = () => {
       >
         <TextElement
           id="phoneNumber"
-          mask={[
-            '(',
-            /\d/u,
-            /\d/u,
-            /\d/u,
-            ')',
-            ' ',
-            /\d/u,
-            /\d/u,
-            /\d/u,
-            '-',
-            /\d/u,
-            /\d/u,
-            /\d/u,
-            /\d/u,
-          ]}
+          mask={PHONE_NUMBER_MASK}
           placeholder="Phone Number"
           style={{
             fonts: [INTER_FONT],
             base: {
               color: theme.palette.text.primary,
-              fontFamily: "'Inter', sans-serif",
+              fontFamily: theme.typography.fontFamily,
               padding: 0,
               '::placeholder': {
-                color: 'rgba(0, 0, 0, 0.35)',
+                color: theme.palette.text.disabled,
               },
             },
           }}

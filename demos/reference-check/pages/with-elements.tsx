@@ -8,7 +8,7 @@ import { ApplicationPanel } from '@/components/ApplicationPanel';
 import { DatabaseTable } from '@/components/DatabaseTable';
 import { FormWithElements } from '@/components/FormWithElements';
 
-const ELEMENTS_API_KEY = 'key_XVB48UzHJ57TdPtmLhJa9e';
+const ELEMENTS_API_KEY = 'key_PbtHwc1czxgah2taJVsrjN';
 
 const WithElements = () => {
   const { bt } = useBasisTheory(ELEMENTS_API_KEY, {
