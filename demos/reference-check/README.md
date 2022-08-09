@@ -26,7 +26,7 @@ Relevant source code: [components/FormWithElements.tsx](components/FormWithEleme
 
 ### `/migration`
 
-Allows user to enter a Server API Key to tokenize all plain text data from previous records.
+Allows user to enter a Server API Key to tokenize plain text phone numbers from previous records.
 
 Makes a `POST /api/migrate` call that will start the server process:
 1. List all plain text driver records;
