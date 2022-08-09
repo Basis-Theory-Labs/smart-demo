@@ -1,5 +1,13 @@
 import React from 'react';
-import { AppBar, Button, Toolbar, Typography } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Button,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon';
@@ -45,6 +53,22 @@ const useRoutes = (): CurrentRoutes => {
 
 const Navigation = () => {
   const { previous, current, next } = useRoutes();
+  const router = useRouter();
+
+  /* eslint-disable unicorn/no-null */
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const navigate = (route: string) => {
+    router.push(route);
+    handleClose();
+  };
+  /* eslint-enable unicorn/no-null */
 
   return (
     <AppBar component="nav" elevation={1} position="static">
@@ -57,14 +81,34 @@ const Navigation = () => {
             {'Previous'}
           </Button>
         </NextLink>
-        <Typography
-          align="center"
-          color="text.secondary"
-          sx={{ flexGrow: 1 }}
-          variant="subtitle2"
-        >
-          {current?.title}
-        </Typography>
+        <Box flexGrow={1} textAlign="center">
+          <Button color="info" onClick={handleClick} variant="text">
+            <Typography
+              align="center"
+              color="text.secondary"
+              sx={{ flexGrow: 1 }}
+              variant="subtitle2"
+            >
+              {current?.title}
+            </Typography>
+          </Button>
+          <Menu
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+            anchorEl={anchorEl}
+            id="basic-menu"
+            onClose={handleClose}
+            open={open}
+          >
+            {routes.map((route) => (
+              <MenuItem key={route.route} onClick={() => navigate(route.route)}>
+                {route.title}
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
+
         <NextLink href={next?.route ?? '/'} passHref>
           <Button
             endIcon={<ArrowRightIcon />}

@@ -35,4 +35,4 @@ Makes a `POST /api/migrate` call that will start the server process:
 
 Relevant source code:
 - [components/MigrationForm.tsx](components/MigrationForm.tsx)
-- [pages/api/migration.ts](pages/api/migration.ts)
+- [pages/api/migration.ts](pages/api/migrate.ts)
