@@ -30,6 +30,9 @@ const blissDarkOptions: ThemeOptions = {
       paper: '#070A1B',
     },
     divider: alpha('#D1D7FF', 0.15),
+    primary: {
+      main: '#00D2EF',
+    },
   },
   typography: {
     fontFamily: "'Inter', sans-serif",
@@ -40,6 +43,7 @@ const blissDarkOptions: ThemeOptions = {
     code: {
       fontFamily: "'Source Code Pro', monospace",
     },
+    button: {},
   },
   components: {
     MuiPaper: {
@@ -50,6 +54,13 @@ const blissDarkOptions: ThemeOptions = {
         root: ({ theme }) => ({
           border: `1px solid ${theme.palette.divider}`,
         }),
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'inherit',
+        },
       },
     },
   },
@@ -71,13 +82,6 @@ const yourApplicationOptions: ThemeOptions = {
   },
   typography: blissDarkOptions.typography,
   components: {
-    MuiInput: {
-      styleOverrides: {
-        root: {
-          backgroundColor: 'white',
-        },
-      },
-    },
     MuiButton: {
       styleOverrides: {
         root: {

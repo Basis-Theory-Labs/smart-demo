@@ -11,6 +11,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <title>{'Reference Check'}</title>
           <link href={SOURCE_CODE_PRO_FONT} rel="stylesheet" />
           <link href={OUTFIT_FONT} rel="stylesheet" />
           <link href={INTER_FONT} rel="stylesheet" />

@@ -50,19 +50,24 @@ export const DatabaseTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map?.((user) => (
+              {data?.map?.((driver) => (
                 <TableRow
-                  key={user.id}
+                  key={driver.id}
                   sx={{ td: { color: 'text.secondary' } }}
                 >
                   <TableCell>
-                    <Typography variant="code">{user.id}</Typography>
+                    <Typography variant="code">{driver.id}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="code">{user.name}</Typography>
+                    <Typography variant="code">{driver.name}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="code">{user.phoneNumber}</Typography>
+                    <Typography
+                      color={driver?.tokenized ? 'warning.main' : 'inherit'}
+                      variant="code"
+                    >
+                      {driver.phoneNumber}
+                    </Typography>
                   </TableCell>
                 </TableRow>
               ))}

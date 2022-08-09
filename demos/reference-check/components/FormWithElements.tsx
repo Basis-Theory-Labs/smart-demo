@@ -27,6 +27,7 @@ export const FormWithElements = () => {
       body: JSON.stringify({
         name,
         phoneNumber: token.id,
+        tokenized: true,
       }),
     });
     setName('');
