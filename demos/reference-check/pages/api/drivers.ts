@@ -13,7 +13,13 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  res.status(200).json(findDrivers());
+  if (req.method === 'GET') {
+    res.status(200).json(findDrivers());
+
+    return;
+  }
+
+  res.status(404).end();
 };
 
 export default handler;
