@@ -45,7 +45,7 @@ const MigrationForm = () => {
           ),
         }}
         fullWidth
-        label="Server to Server API Key"
+        label="Server API Key"
         onChange={(e) => setApiKey(e.target.value)}
         required
         size="small"

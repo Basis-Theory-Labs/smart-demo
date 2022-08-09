@@ -24,3 +24,15 @@ Relevant source code: [components/FormWithElements.tsx](components/FormWithEleme
 
 > To enable format preserving alias, uncomment the line where says `'{{ data | alias_preserve_format }}'`
 
+### `/migration`
+
+Allows user to enter a Server API Key to tokenize all plain text data from previous records.
+
+Makes a `POST /api/migrate` call that will start the server process:
+1. List all plain text driver records;
+2. Bulk tokenizes phone numbers with format preserving aliasing;
+3. Bulk update the driver records with token ids as phone numbers;
+
+Relevant source code:
+- [components/MigrationForm.tsx](components/MigrationForm.tsx)
+- [pages/api/migration.ts](pages/api/migration.ts)
