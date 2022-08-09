@@ -5,7 +5,12 @@ import { useRouter } from 'next/router';
 import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon';
 import ArrowRightIcon from '@/components/icons/ArrowRightIcon';
 
-const routes = [
+interface Route {
+  route: string;
+  title: string;
+}
+
+const routes: Route[] = [
   {
     route: '/',
     title: 'Original Form',
@@ -16,7 +21,13 @@ const routes = [
   },
 ];
 
-const useRoute = () => {
+interface CurrentRoutes {
+  previous?: Route;
+  current?: Route;
+  next?: Route;
+}
+
+const useRoutes = (): CurrentRoutes => {
   const router = useRouter();
 
   const index = routes.findIndex((i) => i.route === router.route);
@@ -29,7 +40,7 @@ const useRoute = () => {
 };
 
 const Navigation = () => {
-  const { previous, current, next } = useRoute();
+  const { previous, current, next } = useRoutes();
 
   return (
     <AppBar component="nav" elevation={1} position="static">
@@ -48,7 +59,7 @@ const Navigation = () => {
           sx={{ flexGrow: 1 }}
           variant="subtitle2"
         >
-          {current.title}
+          {current?.title}
         </Typography>
         <NextLink href={next?.route ?? '/'} passHref>
           <Button
