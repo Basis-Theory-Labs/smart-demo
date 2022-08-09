@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import { Button, Input, TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { MaskedTextField } from '@/components/MaskedTextField';
 
 export const OriginalForm = () => {
@@ -35,7 +35,7 @@ export const OriginalForm = () => {
       />
       <TextField
         InputProps={{
-          inputComponent: MaskedTextField as any,
+          inputComponent: MaskedTextField as never,
           inputProps: {
             mask: '(#00) 000-0000',
           },

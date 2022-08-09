@@ -64,5 +64,3 @@ const Navigation = () => {
 };
 
 export { Navigation };
-
-2;
