@@ -19,16 +19,29 @@ const Circle = styled('div')(({ theme }) => ({
   marginRight: 6,
 }));
 
-const ApplicationHeading = () => (
+interface Props {
+  title?: string | false;
+  subtitle?: string | false;
+}
+
+const ApplicationHeading = ({
+  title = 'DriveWell',
+  subtitle = 'Create your account',
+}: Props) => (
   <>
-    <Typography variant="h5">{'DriveWell'}</Typography>
-    <Typography color="text.secondary" variant="subtitle2">
-      {'Create your account'}
-    </Typography>
+    {title && <Typography variant="h5">{title}</Typography>}
+    {subtitle && (
+      <Typography color="text.secondary" variant="subtitle2">
+        {subtitle}
+      </Typography>
+    )}
   </>
 );
 
-export const ApplicationPanel = ({ children }: PropsWithChildren) => (
+export const ApplicationPanel = ({
+  children,
+  ...headingProps
+}: PropsWithChildren<Props>) => (
   <ThemeProvider theme={yourApplication}>
     <Card>
       <Box
@@ -58,7 +71,7 @@ export const ApplicationPanel = ({ children }: PropsWithChildren) => (
       </Box>
       <CardContent>
         <Container maxWidth="sm">
-          <ApplicationHeading />
+          <ApplicationHeading {...headingProps} />
           {children}
         </Container>
       </CardContent>

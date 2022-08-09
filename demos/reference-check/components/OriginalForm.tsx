@@ -1,26 +1,36 @@
 import React, { FormEvent, useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { TextField } from '@mui/material';
 import { MaskedTextField } from '@/components/MaskedTextField';
 
 export const OriginalForm = () => {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
-    await fetch('/api/drivers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name,
-        phoneNumber,
-      }),
-    });
-    setName('');
-    setPhoneNumber('');
+    setLoading(true);
+
+    try {
+      await fetch('/api/drivers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          phoneNumber,
+        }),
+      });
+      setName('');
+      setPhoneNumber('');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const canSubmit = name.length && phoneNumber.length === 14;
 
   return (
     <form onSubmit={submit}>
@@ -50,9 +60,16 @@ export const OriginalForm = () => {
         }}
         value={phoneNumber}
       />
-      <Button color="primary" sx={{ mt: 2 }} type="submit" variant="contained">
+      <LoadingButton
+        color="primary"
+        disabled={!canSubmit}
+        loading={loading}
+        sx={{ mt: 2 }}
+        type="submit"
+        variant="contained"
+      >
         {'Submit'}
-      </Button>
+      </LoadingButton>
     </form>
   );
 };

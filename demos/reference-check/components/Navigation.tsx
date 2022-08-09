@@ -19,6 +19,10 @@ const routes: Route[] = [
     route: '/with-elements',
     title: 'With Basis Theory',
   },
+  {
+    route: '/migration',
+    title: 'Migration',
+  },
 ];
 
 interface CurrentRoutes {
