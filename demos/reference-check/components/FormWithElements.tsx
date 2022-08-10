@@ -1,38 +1,52 @@
 import React, { FormEvent, useState } from 'react';
 import { TextElement, useBasisTheory } from '@basis-theory/basis-theory-react';
-import { Box, Button, TextField, useTheme } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Box, TextField, useTheme } from '@mui/material';
 import { INTER_FONT, PHONE_NUMBER_MASK } from '@/components/constants';
 import { ttl } from '@/components/utils';
 
 export const FormWithElements = () => {
   const [name, setName] = useState('');
+  const [isPhoneNumberComplete, setPhoneNumberComplete] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { bt } = useBasisTheory();
   const theme = useTheme();
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
-    const phoneNumber = bt?.getElement('phoneNumber');
-    const token = await bt?.tokens.create({
-      // id: '{{ data | alias_preserve_format }}',
-      type: 'token',
-      data: phoneNumber,
-      expiresAt: ttl(),
-    });
 
-    await fetch('/api/drivers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name,
-        phoneNumber: token.id,
-        tokenized: true,
-      }),
-    });
-    setName('');
-    phoneNumber?.clear();
+    if (bt) {
+      setLoading(true);
+
+      try {
+        const phoneNumber = bt.getElement('phoneNumber');
+        const token = await bt.tokens.create({
+          // id: '{{ data | alias_preserve_format }}',
+          type: 'token',
+          data: phoneNumber,
+          expiresAt: ttl(),
+        });
+
+        await fetch('/api/drivers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            phoneNumber: token.id,
+            tokenized: true,
+          }),
+        });
+        setName('');
+        phoneNumber?.clear();
+      } finally {
+        setLoading(false);
+      }
+    }
   };
+
+  const canSubmit = bt && name.length && isPhoneNumberComplete;
 
   return (
     <form onSubmit={submit}>
@@ -57,6 +71,7 @@ export const FormWithElements = () => {
         <TextElement
           id="phoneNumber"
           mask={PHONE_NUMBER_MASK}
+          onChange={(e) => setPhoneNumberComplete(e.complete)}
           placeholder="Phone Number"
           style={{
             fonts: [INTER_FONT],
@@ -71,9 +86,16 @@ export const FormWithElements = () => {
           }}
         />
       </Box>
-      <Button color="primary" sx={{ mt: 2 }} type="submit" variant="contained">
+      <LoadingButton
+        color="primary"
+        disabled={!canSubmit}
+        loading={loading}
+        sx={{ mt: 2 }}
+        type="submit"
+        variant="contained"
+      >
         {'Submit'}
-      </Button>
+      </LoadingButton>
     </form>
   );
 };
