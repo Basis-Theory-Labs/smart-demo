@@ -14,36 +14,39 @@ export const FormWithElements = () => {
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
-    setLoading(true);
 
-    try {
-      const phoneNumber = bt?.getElement('phoneNumber');
-      const token = await bt?.tokens.create({
-        // id: '{{ data | alias_preserve_format }}',
-        type: 'token',
-        data: phoneNumber,
-        expiresAt: ttl(),
-      });
+    if (bt) {
+      setLoading(true);
 
-      await fetch('/api/drivers', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          phoneNumber: token.id,
-          tokenized: true,
-        }),
-      });
-      setName('');
-      phoneNumber?.clear();
-    } finally {
-      setLoading(false);
+      try {
+        const phoneNumber = bt.getElement('phoneNumber');
+        const token = await bt.tokens.create({
+          // id: '{{ data | alias_preserve_format }}',
+          type: 'token',
+          data: phoneNumber,
+          expiresAt: ttl(),
+        });
+
+        await fetch('/api/drivers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            phoneNumber: token.id,
+            tokenized: true,
+          }),
+        });
+        setName('');
+        phoneNumber?.clear();
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
-  const canSubmit = name.length && isPhoneNumberComplete;
+  const canSubmit = bt && name.length && isPhoneNumberComplete;
 
   return (
     <form onSubmit={submit}>
