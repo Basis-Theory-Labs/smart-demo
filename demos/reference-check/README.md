@@ -6,7 +6,11 @@ A company is doing reference checks for drivers. They have an existing form that
 
 ## Pages
 
-### `/` (index)
+### `/` (Setup)
+
+This is where you add the public and private API keys used in the demo. Nothing works without this.
+
+### `/original-form`
 
 Shows the original driver registration form, featuring a "Name" and a masked "Phone Number" input; and how the captured data is stored in plain text in the database.
 

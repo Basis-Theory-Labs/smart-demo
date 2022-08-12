@@ -3,7 +3,7 @@ import './loki';
 
 const drivers = () => global.loki.getCollection<Driver>('drivers');
 
-const insertDriver = (doc: Driver) => drivers().insert(doc);
+const insertDriver = (doc: Driver) => drivers().insert(doc) as Driver;
 
 const findDrivers = (query?: LokiQuery<Driver>) => drivers().find(query);
 

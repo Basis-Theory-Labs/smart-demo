@@ -1,11 +1,6 @@
 import Loki from 'lokijs';
 import type { Driver } from '@/types';
 
-declare global {
-  // eslint-disable-next-line no-inner-declarations,no-var,vars-on-top
-  var loki: Loki;
-}
-
 const seedDrivers = () => {
   const drivers = global.loki.addCollection<Driver>('drivers', {
     disableMeta: true,

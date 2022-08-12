@@ -2,10 +2,19 @@ import React, { FormEvent, useState } from 'react';
 import { TextElement, useBasisTheory } from '@basis-theory/basis-theory-react';
 import { LoadingButton } from '@mui/lab';
 import { Box, TextField, useTheme } from '@mui/material';
+import axios from 'axios';
 import { INTER_FONT, PHONE_NUMBER_MASK } from '@/components/constants';
 import { ttl } from '@/components/utils';
 
-export const FormWithElements = () => {
+interface Props {
+  path?: string;
+  onSubmit?: (data: unknown) => unknown;
+}
+
+export const FormWithElements = ({
+  path = '/api/drivers',
+  onSubmit,
+}: Props) => {
   const [name, setName] = useState('');
   const [isPhoneNumberComplete, setPhoneNumberComplete] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -27,17 +36,14 @@ export const FormWithElements = () => {
           expiresAt: ttl(),
         });
 
-        await fetch('/api/drivers', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            phoneNumber: token.id,
-            tokenized: true,
-          }),
+        const { data } = await axios.post(path, {
+          name,
+          phoneNumber: token.id,
+          tokenized: true,
         });
+
+        onSubmit?.(data);
+
         setName('');
         phoneNumber?.clear();
       } finally {

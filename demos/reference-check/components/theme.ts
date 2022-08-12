@@ -42,6 +42,8 @@ const blissDarkOptions: ThemeOptions = {
     subtitle2: {},
     code: {
       fontFamily: "'Source Code Pro', monospace",
+      fontSize: '12px',
+      fontWeight: '600',
     },
     button: {},
   },
