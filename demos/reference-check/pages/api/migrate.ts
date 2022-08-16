@@ -19,8 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (drivers.length) {
     // initializes SDK with the API key
-    const { apiKey } = req.body;
-    const bt = await new BasisTheory().init(apiKey);
+    const bt = await new BasisTheory().init(global.privateApiKey);
 
     // tokenizes bulk array
     const tokens = await bt.tokenize(

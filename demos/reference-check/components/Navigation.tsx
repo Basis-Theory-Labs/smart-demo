@@ -21,15 +21,23 @@ interface Route {
 const routes: Route[] = [
   {
     route: '/',
+    title: 'Setup',
+  },
+  {
+    route: '/original-form',
     title: 'Original Form',
   },
   {
     route: '/with-elements',
-    title: 'With Basis Theory',
+    title: 'With Elements',
   },
   {
     route: '/migration',
     title: 'Migration',
+  },
+  {
+    route: '/proxy',
+    title: 'Proxy',
   },
 ];
 

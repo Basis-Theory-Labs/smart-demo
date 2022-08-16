@@ -1,14 +1,15 @@
 import React from 'react';
 import { Grid } from '@mui/material';
+import type { NextPage } from 'next';
 import { ApplicationPanel } from '@/components/ApplicationPanel';
 import { DatabaseTable } from '@/components/DatabaseTable';
-import { MigrationForm } from '@/components/MigrationForm';
+import { OriginalForm } from '@/components/OriginalForm';
 
-const Migration = () => (
+const Home: NextPage = () => (
   <Grid container direction="column" justifyContent="center" spacing={2}>
     <Grid item>
-      <ApplicationPanel subtitle="Click the button below to tokenize all plain-text phone numbers">
-        <MigrationForm />
+      <ApplicationPanel>
+        <OriginalForm />
       </ApplicationPanel>
     </Grid>
     <Grid item>
@@ -17,4 +18,4 @@ const Migration = () => (
   </Grid>
 );
 
-export default Migration;
+export default Home;
