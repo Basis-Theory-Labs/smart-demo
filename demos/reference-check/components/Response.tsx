@@ -18,12 +18,15 @@ import {
 } from '@mui/material';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { prismTheme } from '@/components/prismTheme';
+import type { EchoResponse } from '@/types';
 
 interface Props {
-  data?: any;
+  data?: EchoResponse;
   expanded?: boolean;
   onExpanded: (expanded: boolean) => unknown;
 }
+
+const specialHeaders = new Set(['BT-TRACE-ID', 'DRIVE-WELL-AUTH']);
 
 const Response = ({ data, expanded, onExpanded }: Props) => {
   const [tab, setTab] = useState('payload');
@@ -57,9 +60,25 @@ const Response = ({ data, expanded, onExpanded }: Props) => {
                 mb: 2,
               }}
             >
-              {data?.method && <Chip color="primary" label={data?.method} />}
-              {data?.url && (
-                <Typography component="span" sx={{ ml: 2 }} variant="subtitle2">
+              {data.method && (
+                <Chip
+                  label={data.method}
+                  sx={(theme) => ({
+                    borderRadius: theme.shape.borderRadius,
+                    background: 'rgba(0, 210, 239, 0.15)',
+                    border: '1px solid rgba(0, 210, 239, 0.15)',
+                    color: '#00B3CC',
+                    fontWeight: 600,
+                  })}
+                />
+              )}
+              {data.url && (
+                <Typography
+                  component="span"
+                  fontSize={14}
+                  sx={{ ml: 2 }}
+                  variant="code"
+                >
                   {data.url}
                 </Typography>
               )}
@@ -70,42 +89,58 @@ const Response = ({ data, expanded, onExpanded }: Props) => {
                 <Tab label="Payload" value="payload" />
               </TabList>
               <TabPanel value="headers">
-                {data?.headers && (
+                {data.headers && (
                   <TableContainer component={Paper}>
                     <Table size="small">
                       <TableBody>
-                        {Object.entries(data.headers).map(([header, value]) => (
-                          <TableRow hover key={header}>
-                            <TableCell>
-                              <Typography
-                                fontWeight={500}
-                                lineHeight="1"
-                                variant="overline"
-                              >
-                                {header}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography color="text.secondary" variant="code">
-                                {value as string}
-                              </Typography>
-                            </TableCell>
-                          </TableRow>
-                        ))}
+                        {Object.entries(data.headers).map(([header, value]) => {
+                          const isSpecial = specialHeaders.has(
+                            header.toUpperCase()
+                          );
+
+                          return (
+                            <TableRow hover key={header}>
+                              <TableCell>
+                                <Typography
+                                  color={
+                                    isSpecial ? 'warning.main' : 'text.primary'
+                                  }
+                                  fontWeight={500}
+                                  lineHeight="1"
+                                  variant="overline"
+                                >
+                                  {header}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography
+                                  color={
+                                    isSpecial
+                                      ? 'warning.main'
+                                      : 'text.secondary'
+                                  }
+                                  variant="code"
+                                >
+                                  {value as string}
+                                </Typography>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
                       </TableBody>
                     </Table>
                   </TableContainer>
                 )}
               </TabPanel>
               <TabPanel value="payload">
-                {data?.json && (
+                {Boolean(data.json) && (
                   <SyntaxHighlighter
                     customStyle={{ minHeight: '100%' }}
                     language="json"
                     showLineNumbers
                     style={prismTheme}
                   >
-                    {JSON.stringify(data?.json, undefined, 2)}
+                    {JSON.stringify(data.json, undefined, 2)}
                   </SyntaxHighlighter>
                 )}
               </TabPanel>

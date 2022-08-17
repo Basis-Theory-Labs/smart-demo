@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as crypto from 'crypto';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createDriver } from '@/pages/api/drivers';
 import { ApiError } from '@/server/ApiError';
@@ -18,6 +19,7 @@ const referenceCheckApi = withApiErrorHandling(
       headers: {
         'BT-API-KEY': global.privateApiKey,
         'BT-PROXY-URL': 'https://echo.basistheory.com/anything',
+        'DRIVE-WELL-AUTH': crypto.randomBytes(20).toString('hex'),
       },
       data: {
         name,

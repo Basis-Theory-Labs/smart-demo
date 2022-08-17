@@ -5,13 +5,14 @@ import { ApplicationPanel } from '@/components/ApplicationPanel';
 import { DatabaseTable } from '@/components/DatabaseTable';
 import { FormWithFingerprint } from '@/components/FormWithFingerprint';
 import { Response } from '@/components/Response';
+import type { EchoResponse } from '@/types';
 
 const Proxy = () => {
-  const [data, setData] = useState<unknown>();
+  const [data, setData] = useState<EchoResponse>();
   const [expanded, setExpanded] = useState<boolean>(false);
 
   const handleData = (d: unknown) => {
-    setData(d);
+    setData(d as EchoResponse);
     setExpanded(true);
   };
 
