@@ -1,6 +1,8 @@
 export interface Driver {
-  id: string;
+  id?: string;
   name: string;
   phoneNumber: string;
+  ssn?: string;
+  ssnFingerprint?: string;
   tokenized?: boolean;
 }

@@ -1,21 +1,23 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { ApiError } from '@/server/ApiError';
+import { withApiErrorHandling } from '@/server/withApiErrorHandling';
 
-const handler = (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'POST') {
-    res.status(404).end();
+const setupApi = withApiErrorHandling(
+  (req: NextApiRequest, res: NextApiResponse) => {
+    if (req.method !== 'POST') {
+      throw new ApiError(404);
+    }
 
-    return;
+    if (req?.body?.privateApiKey) {
+      global.privateApiKey = req?.body?.privateApiKey;
+    }
+
+    if (req?.body?.publicApiKey) {
+      global.publicApiKey = req?.body?.publicApiKey;
+    }
+
+    res.status(200).end();
   }
+);
 
-  if (req?.body?.privateApiKey) {
-    global.privateApiKey = req?.body?.privateApiKey;
-  }
-
-  if (req?.body?.publicApiKey) {
-    global.publicApiKey = req?.body?.publicApiKey;
-  }
-
-  res.status(200).end();
-};
-
-export default handler;
+export default setupApi;

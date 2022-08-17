@@ -24,16 +24,20 @@ const routes: Route[] = [
     title: 'Setup',
   },
   {
-    route: '/original-form',
-    title: 'Original Form',
+    route: '/home',
+    title: 'Home',
   },
   {
-    route: '/with-elements',
-    title: 'With Elements',
+    route: '/elements',
+    title: 'Elements',
   },
   {
     route: '/migration',
     title: 'Migration',
+  },
+  {
+    route: '/deduplicate',
+    title: 'Deduplicate',
   },
   {
     route: '/proxy',

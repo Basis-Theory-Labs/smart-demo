@@ -24,4 +24,24 @@ const PHONE_NUMBER_MASK = [
   /\d/u,
 ];
 
-export { SOURCE_CODE_PRO_FONT, INTER_FONT, OUTFIT_FONT, PHONE_NUMBER_MASK };
+const SSN_MASK = [
+  /\d/u,
+  /\d/u,
+  /\d/u,
+  '-',
+  /\d/u,
+  /\d/u,
+  '-',
+  /\d/u,
+  /\d/u,
+  /\d/u,
+  /\d/u,
+];
+
+export {
+  SOURCE_CODE_PRO_FONT,
+  INTER_FONT,
+  OUTFIT_FONT,
+  PHONE_NUMBER_MASK,
+  SSN_MASK,
+};

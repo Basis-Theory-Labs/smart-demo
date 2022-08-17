@@ -1,17 +1,22 @@
 import React, { FormEvent, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
+import {
+  Button,
+  IconButton,
+  InputAdornment,
+  Link,
+  TextField,
+} from '@mui/material';
+import type { StandardTextFieldProps } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-interface Props {
-  value: string;
+interface Props extends Omit<StandardTextFieldProps, 'onChange'> {
   onChange: (value: string) => unknown;
-  label?: string;
 }
 
-const PasswordField = ({ value, onChange, label }: Props) => {
+const PasswordField = ({ value, onChange, label, ...props }: Props) => {
   const [visible, setVisible] = useState(false);
 
   return (
@@ -36,6 +41,7 @@ const PasswordField = ({ value, onChange, label }: Props) => {
       sx={{ mt: 2 }}
       type={visible ? 'text' : 'password'}
       value={value}
+      {...props}
     />
   );
 };
@@ -58,7 +64,7 @@ const SetupForm = ({ done }: { done?: boolean }) => {
         publicApiKey,
         privateApiKey,
       });
-      await router.push('/original-form');
+      await router.push('/home');
     } finally {
       setLoading(false);
     }
@@ -67,12 +73,38 @@ const SetupForm = ({ done }: { done?: boolean }) => {
   return (
     <form onSubmit={submit}>
       <PasswordField
+        helperText={
+          <>
+            {'Click '}
+            <Link
+              href="https://portal.basistheory.com/applications/create?name=Reference+Check+Frontend&permissions=token%3Ageneral%3Acreate&permissions=token%3Apii%3Acreate&type=public"
+              target="_blank"
+            >
+              {'here'}
+            </Link>
+            {' to create an Application with the required permissions'}
+          </>
+        }
         label="Public API Key"
+        name="publicApiKey"
         onChange={setPublicApiKey}
         value={publicApiKey}
       />
       <PasswordField
+        helperText={
+          <>
+            {'Click '}
+            <Link
+              href="https://portal.basistheory.com/applications/create?name=Reference+Check+Backend&permissions=token%3Ageneral%3Acreate&permissions=token%3Ageneral%3Ause%3Aproxy&permissions=token%3Ageneral%3Adelete&permissions=token%3Apii%3Adelete&permissions=token%3Apii%3Ause%3Aproxy"
+              target="_blank"
+            >
+              {'here'}
+            </Link>
+            {' to create an Application with the required permissions'}
+          </>
+        }
         label="Private API Key"
+        name="privateApiKey"
         onChange={setPrivateApiKey}
         value={privateApiKey}
       />
@@ -87,7 +119,7 @@ const SetupForm = ({ done }: { done?: boolean }) => {
       </LoadingButton>
       {done && (
         <Button
-          onClick={() => router.push('/original-form')}
+          onClick={() => router.push('/home')}
           sx={{ mt: 2 }}
           type="button"
           variant="text"

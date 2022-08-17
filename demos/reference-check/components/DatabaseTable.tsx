@@ -31,7 +31,11 @@ const TableHeadPaper = ({ ...props }) => (
   />
 );
 
-export const DatabaseTable = () => {
+interface Props {
+  showSsn?: boolean;
+}
+
+export const DatabaseTable = ({ showSsn }: Props) => {
   const { data } = useSWR<Driver[]>('/api/drivers', fetcher, {
     refreshInterval: 100,
   });
@@ -47,6 +51,12 @@ export const DatabaseTable = () => {
                 <TableCell>{'ID'}</TableCell>
                 <TableCell>{'Name'}</TableCell>
                 <TableCell>{'Phone Number'}</TableCell>
+                {showSsn && (
+                  <>
+                    <TableCell>{'SSN'}</TableCell>
+                    <TableCell>{'SSN Fingerprint'}</TableCell>
+                  </>
+                )}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -69,6 +79,26 @@ export const DatabaseTable = () => {
                       {driver.phoneNumber}
                     </Typography>
                   </TableCell>
+                  {showSsn && (
+                    <>
+                      <TableCell>
+                        <Typography
+                          color={driver?.tokenized ? 'warning.main' : 'inherit'}
+                          variant="code"
+                        >
+                          {driver.ssn}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography
+                          color={driver?.tokenized ? 'warning.main' : 'inherit'}
+                          variant="code"
+                        >
+                          {driver.ssnFingerprint}
+                        </Typography>
+                      </TableCell>
+                    </>
+                  )}
                 </TableRow>
               ))}
             </TableBody>

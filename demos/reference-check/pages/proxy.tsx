@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 import type { GetServerSideProps } from 'next';
 import { ApplicationPanel } from '@/components/ApplicationPanel';
 import { DatabaseTable } from '@/components/DatabaseTable';
-import { FormWithElements } from '@/components/FormWithElements';
+import { FormWithFingerprint } from '@/components/FormWithFingerprint';
 import { Response } from '@/components/Response';
 
 const Proxy = () => {
@@ -19,11 +19,14 @@ const Proxy = () => {
     <Grid container direction="column" justifyContent="center" spacing={2}>
       <Grid item>
         <ApplicationPanel>
-          <FormWithElements onSubmit={handleData} path="/api/reference-check" />
+          <FormWithFingerprint
+            onSubmit={handleData}
+            path="/api/reference-check"
+          />
         </ApplicationPanel>
       </Grid>
       <Grid item>
-        <DatabaseTable />
+        <DatabaseTable showSsn />
       </Grid>
       <Grid item>
         <Response data={data} expanded={expanded} onExpanded={setExpanded} />
