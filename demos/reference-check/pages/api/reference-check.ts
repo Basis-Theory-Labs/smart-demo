@@ -12,8 +12,6 @@ const referenceCheckApi = withApiErrorHandling(
 
     const { name, phoneNumber, ssn } = await createDriver(req.body);
 
-    // console.log(req.body);
-
     const proxyRes = await axios.request({
       url: 'https://api.basistheory.com/proxy',
       method: 'POST',
@@ -23,8 +21,14 @@ const referenceCheckApi = withApiErrorHandling(
       },
       data: {
         name,
-        phoneNumber: `{{${phoneNumber}}}`,
-        ssn: `{{${ssn}}}`,
+        phoneNumber: {
+          full: `+1 {{${phoneNumber}}}`,
+          countryCode: '+1',
+          areaCode: `{{ ${phoneNumber} | split: ' ' | first | remove: '(' | remove: ')' }}`,
+          exchangeCode: `{{ ${phoneNumber}  | split: '-' | last }}`,
+          lineNumber: `{{ ${phoneNumber} | split: ' ' | last | split: '-' | first }}`,
+        },
+        ssn: `{{ ${ssn} | remove: '-' }}`,
       },
     });
 
