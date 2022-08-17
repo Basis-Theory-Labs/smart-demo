@@ -63,7 +63,8 @@ export const FormWithFingerprint = ({
         onSubmit?.(data);
 
         setName('');
-        phoneNumber?.clear();
+        phoneNumber.clear();
+        ssn.clear();
       } catch (error) {
         if (error instanceof AxiosError) {
           setErrorMessage(error.response?.data.message);
