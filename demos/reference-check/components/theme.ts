@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import type {} from '@mui/lab/themeAugmentation';
 import { alpha, createTheme } from '@mui/material';
 import type { ThemeOptions } from '@mui/material';
 
@@ -62,6 +63,20 @@ const blissDarkOptions: ThemeOptions = {
       styleOverrides: {
         root: {
           textTransform: 'inherit',
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          textTransform: 'inherit',
+        },
+      },
+    },
+    MuiTabPanel: {
+      styleOverrides: {
+        root: {
+          padding: 0,
         },
       },
     },

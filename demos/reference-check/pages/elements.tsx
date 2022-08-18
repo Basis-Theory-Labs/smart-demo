@@ -5,7 +5,7 @@ import { ApplicationPanel } from '@/components/ApplicationPanel';
 import { DatabaseTable } from '@/components/DatabaseTable';
 import { FormWithElements } from '@/components/FormWithElements';
 
-const WithElements = () => (
+const Elements = () => (
   <Grid container direction="column" justifyContent="center" spacing={2}>
     <Grid item>
       <ApplicationPanel>
@@ -26,4 +26,4 @@ export const getServerSideProps: GetServerSideProps = () =>
     },
   });
 
-export default WithElements;
+export default Elements;

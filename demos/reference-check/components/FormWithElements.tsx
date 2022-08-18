@@ -20,9 +20,14 @@ export const FormWithElements = ({
   const [loading, setLoading] = useState(false);
   const { bt } = useBasisTheory();
   const theme = useTheme();
+  const canSubmit = bt && name.length && isPhoneNumberComplete;
 
-  const submit = async (event: FormEvent) => {
-    event.preventDefault();
+  const submit = async (event?: FormEvent) => {
+    event?.preventDefault();
+
+    if (!canSubmit) {
+      return;
+    }
 
     if (bt) {
       setLoading(true);
@@ -30,7 +35,7 @@ export const FormWithElements = ({
       try {
         const phoneNumber = bt.getElement('phoneNumber');
         const token = await bt.tokens.create({
-          // id: '{{ data | alias_preserve_format }}',
+          id: '{{ data | alias_preserve_format }}',
           type: 'token',
           data: phoneNumber,
           expiresAt: ttl(),
@@ -51,8 +56,6 @@ export const FormWithElements = ({
       }
     }
   };
-
-  const canSubmit = bt && name.length && isPhoneNumberComplete;
 
   return (
     <form onSubmit={submit}>
@@ -78,6 +81,11 @@ export const FormWithElements = ({
           id="phoneNumber"
           mask={PHONE_NUMBER_MASK}
           onChange={(e) => setPhoneNumberComplete(e.complete)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              submit();
+            }
+          }}
           placeholder="Phone Number"
           style={{
             fonts: [INTER_FONT],
