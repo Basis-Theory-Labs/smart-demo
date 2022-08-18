@@ -41,7 +41,7 @@ const createDriver = async ({
   if (tokenized && ssn && isDuplicated(ssnFingerprint)) {
     await cleanUpTokens(phoneNumber, ssn);
 
-    throw new ApiError(409, `Duplicate SSN: ${ssnFingerprint}`);
+    throw new ApiError(409, `Duplicate SSN. Fingerprint: ${ssnFingerprint}`);
   }
 
   return insertDriver({

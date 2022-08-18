@@ -8,8 +8,15 @@ export const OriginalForm = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const canSubmit = name.length && phoneNumber.length === 14;
+
   const submit = async (event: FormEvent) => {
     event.preventDefault();
+
+    if (!canSubmit) {
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -30,10 +37,8 @@ export const OriginalForm = () => {
     }
   };
 
-  const canSubmit = name.length && phoneNumber.length === 14;
-
   return (
-    <form onSubmit={submit}>
+    <form name="form" onSubmit={submit}>
       <TextField
         fullWidth
         onChange={(e) => setName(e.target.value)}

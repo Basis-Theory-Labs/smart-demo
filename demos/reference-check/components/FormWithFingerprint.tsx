@@ -26,9 +26,14 @@ export const FormWithFingerprint = ({
   const [errorMessage, setErrorMessage] = useState('');
   const { bt } = useBasisTheory();
   const theme = useTheme();
+  const canSubmit = bt && name.length && isPhoneNumberComplete && isSsnComplete;
 
-  const submit = async (event: FormEvent) => {
-    event.preventDefault();
+  const submit = async (event?: FormEvent) => {
+    event?.preventDefault();
+
+    if (!canSubmit) {
+      return;
+    }
 
     if (bt) {
       setLoading(true);
@@ -75,8 +80,6 @@ export const FormWithFingerprint = ({
     }
   };
 
-  const canSubmit = bt && name.length && isPhoneNumberComplete && isSsnComplete;
-
   return (
     <form onSubmit={submit}>
       <TextField
@@ -101,6 +104,11 @@ export const FormWithFingerprint = ({
           id="phoneNumber"
           mask={PHONE_NUMBER_MASK}
           onChange={(e) => setPhoneNumberComplete(e.complete)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              submit();
+            }
+          }}
           placeholder="Phone Number"
           style={{
             fonts: [INTER_FONT],
@@ -128,6 +136,11 @@ export const FormWithFingerprint = ({
           id="ssn"
           mask={SSN_MASK}
           onChange={(e) => setSsnComplete(e.complete)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              submit();
+            }
+          }}
           placeholder="SSN"
           style={{
             fonts: [INTER_FONT],
