@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import {
+  Alert,
   Button,
   IconButton,
   InputAdornment,
@@ -46,7 +47,7 @@ const PasswordField = ({ value, onChange, label, ...props }: Props) => {
   );
 };
 
-const SetupForm = ({ done }: { done?: boolean }) => {
+const SetupForm = ({ hasSession }: { hasSession?: boolean }) => {
   const [publicApiKey, setPublicApiKey] = useState('');
   const [privateApiKey, setPrivateApiKey] = useState('');
   const [loading, setLoading] = useState(false);
@@ -117,15 +118,26 @@ const SetupForm = ({ done }: { done?: boolean }) => {
       >
         {'Get Started'}
       </LoadingButton>
-      {done && (
-        <Button
-          onClick={() => router.push('/home')}
-          sx={{ mt: 2 }}
-          type="button"
-          variant="text"
+      {hasSession && (
+        <Alert
+          action={
+            <Button
+              onClick={() => router.push('/home')}
+              type="button"
+              variant="text"
+            >
+              {'Skip'}
+            </Button>
+          }
+          severity="warning"
+          sx={{
+            mt: 2,
+          }}
         >
-          {'Skip'}
-        </Button>
+          {
+            'By submitting this again, your previous session database will be reset.'
+          }
+        </Alert>
       )}
     </form>
   );

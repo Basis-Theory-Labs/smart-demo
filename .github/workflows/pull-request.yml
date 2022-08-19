@@ -43,17 +43,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Use Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14.x
-
-      - name: Install deps (with cache)
-        uses: bahmutov/npm-install@v1
-        with:
-          working-directory: demos/${{ matrix.demo }}
-          install-command: yarn --frozen-lockfile --no-progress --ignore-scripts
-
       - name: Build
-        working-directory: demos/${{ matrix.demo }}
-        run: yarn build
+        uses: whoan/docker-build-with-cache-action@v5
+        with:
+          push_image_and_stages: false
+          context: demos/${{ matrix.demo }}
+          image_name: ${{ matrix.demo }}

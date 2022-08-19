@@ -1,19 +1,17 @@
 import { BasisTheory } from '@basis-theory/basis-theory-js';
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { ApiError } from '@/server/ApiError';
 import { findDrivers, insertDriver } from '@/server/db';
-import { withApiErrorHandling } from '@/server/withApiErrorHandling';
-import { Driver } from '@/types';
+import { apiWithSession } from '@/server/session';
+import { Driver, Session } from '@/types';
 
 /**
  * Verifies if the SSN fingerprint is already
  * present in the database
- * @param ssnFingerprint
  */
-const isDuplicated = (ssnFingerprint?: string): boolean =>
+const isDuplicated = (tenant: string, ssnFingerprint?: string): boolean =>
   Boolean(
     ssnFingerprint &&
-      findDrivers({
+      findDrivers(tenant, {
         ssnFingerprint: {
           $eq: ssnFingerprint,
         },
@@ -21,30 +19,29 @@ const isDuplicated = (ssnFingerprint?: string): boolean =>
   );
 
 /**
- * Deletes tokens that won't be used in the workflow
- * @param phoneNumber
- * @param ssn
+ * Deletes tokens that won't be used
  */
-const cleanUpTokens = async (phoneNumber: string, ssn: string) => {
-  const bt = await new BasisTheory().init(global.privateApiKey);
+const cleanUpTokens = async (
+  session: Session,
+  phoneNumber: string,
+  ssn: string
+) => {
+  const bt = await new BasisTheory().init(session.privateApiKey);
 
   await Promise.all([bt.tokens.delete(ssn), bt.tokens.delete(phoneNumber)]);
 };
 
-const createDriver = async ({
-  name,
-  phoneNumber,
-  tokenized,
-  ssn,
-  ssnFingerprint,
-}: Driver) => {
-  if (tokenized && ssn && isDuplicated(ssnFingerprint)) {
-    await cleanUpTokens(phoneNumber, ssn);
+const createDriver = async (
+  session: Session,
+  { name, phoneNumber, tokenized, ssn, ssnFingerprint }: Omit<Driver, 'tenant'>
+) => {
+  if (tokenized && ssn && isDuplicated(session.id, ssnFingerprint)) {
+    await cleanUpTokens(session, phoneNumber, ssn);
 
     throw new ApiError(409, `Duplicate SSN. Fingerprint: ${ssnFingerprint}`);
   }
 
-  return insertDriver({
+  return insertDriver(session.id, {
     name,
     phoneNumber,
     ssn,
@@ -53,25 +50,31 @@ const createDriver = async ({
   });
 };
 
-const driversApi = withApiErrorHandling(
-  async (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method === 'GET') {
-      res.status(200).json(findDrivers());
-
-      return;
-    }
-
-    if (req.method !== 'POST') {
-      throw new ApiError(404);
-    }
-
-    const driver = await createDriver(req.body);
-
-    res.status(201).json(driver);
+const driversApi = apiWithSession(async (req, res, session) => {
+  if (req.method === 'GET') {
+    res.status(200).json(findDrivers(session.id));
 
     return;
   }
-);
+
+  if (req.method !== 'POST') {
+    throw new ApiError(404);
+  }
+
+  const { name, phoneNumber, tokenized, ssn, ssnFingerprint } = req.body;
+
+  const driver = await createDriver(session, {
+    name,
+    phoneNumber,
+    tokenized,
+    ssn,
+    ssnFingerprint,
+  });
+
+  res.status(201).json(driver);
+
+  return;
+});
 
 export default driversApi;
 export { createDriver };

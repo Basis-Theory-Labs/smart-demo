@@ -8,7 +8,9 @@ A company is doing reference checks for drivers. They have an existing form that
 
 ### Setup `/`
 
-This is where you add the public and private API keys used in the demo. Nothing works without this.
+This is where you add the public and private API keys used in the demo. 
+
+> Nothing works without this.
 
 ### Home `/home`
 
@@ -22,11 +24,11 @@ Relevant source code: [components/OriginalForm.tsx](components/OriginalForm.tsx)
 
 Shows the original form but the "Phone Number" input is replaced with a `TextElement`.
 
+User can enable/disable request-level aliasing using UI switch.
+
 On form submit, it tokenizes the "Phone Number" and passes the token id as a value calls `POST /api/drivers` to create a driver.
 
 Relevant source code: [components/FormWithElements.tsx](components/FormWithElements.tsx)
-
-> To enable format preserving alias, uncomment the line where says `'{{ data | alias_preserve_format }}'`
 
 ### Migration `/migration`
 

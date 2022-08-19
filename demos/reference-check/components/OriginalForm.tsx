@@ -38,7 +38,7 @@ export const OriginalForm = () => {
   };
 
   return (
-    <form name="form" onSubmit={submit}>
+    <form onSubmit={submit}>
       <TextField
         fullWidth
         onChange={(e) => setName(e.target.value)}

@@ -1,7 +1,13 @@
 import React, { FormEvent, useState } from 'react';
 import { TextElement, useBasisTheory } from '@basis-theory/basis-theory-react';
 import { LoadingButton } from '@mui/lab';
-import { Box, TextField, useTheme } from '@mui/material';
+import {
+  Box,
+  FormControlLabel,
+  Switch,
+  TextField,
+  useTheme,
+} from '@mui/material';
 import axios from 'axios';
 import { INTER_FONT, PHONE_NUMBER_MASK } from '@/components/constants';
 import { ttl } from '@/components/utils';
@@ -17,7 +23,9 @@ export const FormWithElements = ({
 }: Props) => {
   const [name, setName] = useState('');
   const [isPhoneNumberComplete, setPhoneNumberComplete] = useState(false);
+
   const [loading, setLoading] = useState(false);
+  const [useAlias, setUseAlias] = useState(false);
   const { bt } = useBasisTheory();
   const theme = useTheme();
   const canSubmit = bt && name.length && isPhoneNumberComplete;
@@ -35,7 +43,7 @@ export const FormWithElements = ({
       try {
         const phoneNumber = bt.getElement('phoneNumber');
         const token = await bt.tokens.create({
-          id: '{{ data | alias_preserve_format }}',
+          ...(useAlias ? { id: '{{ data | alias_preserve_format }}' } : {}),
           type: 'token',
           data: phoneNumber,
           expiresAt: ttl(),
@@ -98,6 +106,17 @@ export const FormWithElements = ({
               },
             },
           }}
+        />
+      </Box>
+      <Box>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={useAlias}
+              onChange={(e) => setUseAlias(e.target.checked)}
+            />
+          }
+          label="Use Aliasing"
         />
       </Box>
       <LoadingButton
