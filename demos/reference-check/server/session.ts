@@ -1,3 +1,4 @@
+import { serialize, CookieSerializeOptions } from 'cookie';
 import crypto from 'crypto';
 import type {
   GetServerSideProps,
@@ -7,7 +8,7 @@ import type {
 import { NextApiHandler } from 'next';
 import { NextApiResponse } from 'next/dist/shared/lib/utils';
 import { GetServerSidePropsContext } from 'next/types';
-import { setCookie, destroyCookie } from 'nookies';
+import { destroyCookie } from 'nookies';
 import { ApiError } from '@/server/ApiError';
 import {
   removeDrivers,
@@ -49,6 +50,23 @@ const getSession = (req: {
   };
 };
 
+const setCookie = (
+  res: NextApiResponse,
+  name: string,
+  value: unknown,
+  options: CookieSerializeOptions = {}
+) => {
+  const stringValue =
+    typeof value === 'object' ? `j:${JSON.stringify(value)}` : String(value);
+
+  if (typeof options.maxAge === 'number') {
+    // eslint-disable-next-line no-param-reassign
+    options.expires = new Date(Date.now() + options.maxAge * 1000);
+  }
+
+  res.setHeader('Set-Cookie', serialize(name, stringValue, options));
+};
+
 const createSession = (res: NextApiResponse, keys: Omit<Session, 'id'>) => {
   const session = crypto.randomBytes(20).toString('hex');
 
@@ -58,19 +76,12 @@ const createSession = (res: NextApiResponse, keys: Omit<Session, 'id'>) => {
   });
   seedDrivers(session);
 
-  setCookie(
-    {
-      res,
-    },
-    SESSION_COOKIE_NAME,
-    session,
-    {
-      maxAge: 60 * 60, // 1 hour session
-      secure: true,
-      path: '/',
-      sameSite: 'lax',
-    }
-  );
+  setCookie(res, SESSION_COOKIE_NAME, session, {
+    maxAge: 60 * 60, // 1 hour session
+    secure: true,
+    path: '/',
+    sameSite: 'lax',
+  });
 
   return session;
 };
