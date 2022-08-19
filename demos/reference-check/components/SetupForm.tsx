@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import {
+  Alert,
   Button,
   IconButton,
   InputAdornment,
@@ -118,14 +119,25 @@ const SetupForm = ({ hasSession }: { hasSession?: boolean }) => {
         {'Get Started'}
       </LoadingButton>
       {hasSession && (
-        <Button
-          onClick={() => router.push('/home')}
-          sx={{ mt: 2 }}
-          type="button"
-          variant="text"
+        <Alert
+          action={
+            <Button
+              onClick={() => router.push('/home')}
+              type="button"
+              variant="text"
+            >
+              {'Skip'}
+            </Button>
+          }
+          severity="warning"
+          sx={{
+            mt: 2,
+          }}
         >
-          {'Skip'}
-        </Button>
+          {
+            'By submitting this again, your previous session database will be reset.'
+          }
+        </Alert>
       )}
     </form>
   );
