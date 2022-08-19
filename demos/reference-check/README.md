@@ -22,11 +22,11 @@ Relevant source code: [components/OriginalForm.tsx](components/OriginalForm.tsx)
 
 Shows the original form but the "Phone Number" input is replaced with a `TextElement`.
 
+User can enable/disable request-level aliasing using UI switch.
+
 On form submit, it tokenizes the "Phone Number" and passes the token id as a value calls `POST /api/drivers` to create a driver.
 
 Relevant source code: [components/FormWithElements.tsx](components/FormWithElements.tsx)
-
-> To enable format preserving alias, uncomment the line where says `'{{ data | alias_preserve_format }}'`
 
 ### Migration `/migration`
 
