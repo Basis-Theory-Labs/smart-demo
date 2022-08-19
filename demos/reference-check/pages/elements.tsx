@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import type { GetServerSideProps } from 'next';
 import { ApplicationPanel } from '@/components/ApplicationPanel';
 import { DatabaseTable } from '@/components/DatabaseTable';
 import { FormWithElements } from '@/components/FormWithElements';
+import { getServerSidePropsWithSession } from '@/server/session';
 
 const Elements = () => (
   <Grid container direction="column" justifyContent="center" spacing={2}>
@@ -18,12 +18,13 @@ const Elements = () => (
   </Grid>
 );
 
-export const getServerSideProps: GetServerSideProps = () =>
+export const getServerSideProps = getServerSidePropsWithSession((_, session) =>
   Promise.resolve({
     props: {
       // eslint-disable-next-line unicorn/no-null
-      publicApiKey: global.publicApiKey || null,
+      publicApiKey: session.publicApiKey || null,
     },
-  });
+  })
+);
 
 export default Elements;

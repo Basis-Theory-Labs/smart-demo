@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 import { ApplicationPanel } from '@/components/ApplicationPanel';
 import { DatabaseTable } from '@/components/DatabaseTable';
 import { OriginalForm } from '@/components/OriginalForm';
+import { getServerSidePropsWithSession } from '@/server/session';
 
 const Home: NextPage = () => (
   <Grid container direction="column" justifyContent="center" spacing={2}>
@@ -17,5 +18,7 @@ const Home: NextPage = () => (
     </Grid>
   </Grid>
 );
+
+export const getServerSideProps = getServerSidePropsWithSession();
 
 export default Home;

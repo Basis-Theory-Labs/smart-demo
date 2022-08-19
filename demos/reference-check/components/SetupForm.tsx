@@ -46,7 +46,7 @@ const PasswordField = ({ value, onChange, label, ...props }: Props) => {
   );
 };
 
-const SetupForm = ({ done }: { done?: boolean }) => {
+const SetupForm = ({ hasSession }: { hasSession?: boolean }) => {
   const [publicApiKey, setPublicApiKey] = useState('');
   const [privateApiKey, setPrivateApiKey] = useState('');
   const [loading, setLoading] = useState(false);
@@ -117,7 +117,7 @@ const SetupForm = ({ done }: { done?: boolean }) => {
       >
         {'Get Started'}
       </LoadingButton>
-      {done && (
+      {hasSession && (
         <Button
           onClick={() => router.push('/home')}
           sx={{ mt: 2 }}

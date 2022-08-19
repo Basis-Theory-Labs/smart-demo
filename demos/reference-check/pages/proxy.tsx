@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Grid } from '@mui/material';
-import type { GetServerSideProps } from 'next';
 import { ApplicationPanel } from '@/components/ApplicationPanel';
 import { DatabaseTable } from '@/components/DatabaseTable';
 import { FormWithFingerprint } from '@/components/FormWithFingerprint';
 import { Response } from '@/components/Response';
+import { getServerSidePropsWithSession } from '@/server/session';
 import type { EchoResponse } from '@/types';
 
 const Proxy = () => {
@@ -36,12 +36,13 @@ const Proxy = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = () =>
+export const getServerSideProps = getServerSidePropsWithSession((_, session) =>
   Promise.resolve({
     props: {
       // eslint-disable-next-line unicorn/no-null
-      publicApiKey: global.publicApiKey || null,
+      publicApiKey: session.publicApiKey || null,
     },
-  });
+  })
+);
 
 export default Proxy;

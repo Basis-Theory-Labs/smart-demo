@@ -1,35 +1,26 @@
 import Loki from 'lokijs';
 import type { Driver } from '@/types';
 
-const seedDrivers = () => {
-  const drivers = global.loki.addCollection<Driver>('drivers', {
-    disableMeta: true,
-  });
-
-  drivers.on('insert', (doc) => {
-    // eslint-disable-next-line no-param-reassign
-    doc.id = doc.$loki;
-  });
-
-  drivers.insert({
-    name: 'Charlie Conway',
-    phoneNumber: '(650) 555-1212',
-  } as Driver);
-
-  drivers.insert({
-    name: 'Adam Banks',
-    phoneNumber: '(415) 444-3131',
-  } as Driver);
-
-  drivers.insert({
-    name: 'Greg Goldberg',
-    phoneNumber: '(212) 333-1515',
-  } as Driver);
-};
+const MINUTE = 1000 * 60;
+const HOUR = MINUTE * 60;
 
 if (!global.loki) {
   global.loki = new Loki('reference-check.db');
-  seedDrivers();
+  global.loki.addCollection<Driver>('sessions', {
+    ttl: HOUR, // 1 hour for the document to be stale
+    ttlInterval: 10 * MINUTE, // clear stale docs ever 10 min
+  });
+  global.loki
+    .addCollection<Driver>('drivers', {
+      ttl: HOUR, // 1 hour for the document to be stale
+      ttlInterval: 10 * MINUTE, // clear stale docs ever 10 min
+    })
+    .on('insert', (doc) => {
+      // eslint-disable-next-line no-param-reassign
+      doc.id = doc.$loki;
+    });
 }
 
-export {};
+const loki = global.loki;
+
+export { loki };
