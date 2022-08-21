@@ -19,6 +19,10 @@ import {
 import { Session } from '@/types';
 
 const SESSION_COOKIE_NAME = 'DriveWellSession';
+const DEFAULT_SESSION = 'default';
+
+// eslint-disable-next-line node/no-process-env
+const isUseCookieSession = () => process.env.USE_COOKIE_SESSION === 'true';
 
 const getSession = (req: {
   cookies: Partial<Record<string, string>>;
@@ -26,7 +30,9 @@ const getSession = (req: {
   | { valid: false; session?: never }
   | { valid: false; session: string }
   | { valid: true; session: Session } => {
-  const id = req.cookies[SESSION_COOKIE_NAME];
+  const id = isUseCookieSession()
+    ? req.cookies[SESSION_COOKIE_NAME]
+    : DEFAULT_SESSION;
 
   if (id) {
     const session = findSession(id);
@@ -50,20 +56,22 @@ const getSession = (req: {
 };
 
 const createSession = (res: NextApiResponse, keys: Omit<Session, 'id'>) => {
-  const session = crypto.randomBytes(20).toString('hex');
+  const id = isUseCookieSession()
+    ? crypto.randomBytes(20).toString('hex')
+    : DEFAULT_SESSION;
 
   insertSession({
-    id: session,
+    id,
     ...keys,
   });
-  seedDrivers(session);
+  seedDrivers(id);
 
   setCookie(
     {
       res,
     },
     SESSION_COOKIE_NAME,
-    session,
+    id,
     {
       maxAge: 60 * 60, // 1 hour session
       secure: true,
@@ -72,7 +80,7 @@ const createSession = (res: NextApiResponse, keys: Omit<Session, 'id'>) => {
     }
   );
 
-  return session;
+  return id;
 };
 
 type GetServerSidePropsWithSession<R = Record<string, any>> = (

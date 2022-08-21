@@ -84,6 +84,7 @@ export const DatabaseTable = ({ showSsn }: Props) => {
                       <TableCell>
                         <Typography
                           color={driver?.tokenized ? 'warning.main' : 'inherit'}
+                          sx={{ whiteSpace: 'nowrap' }}
                           variant="code"
                         >
                           {driver.ssn}
@@ -92,6 +93,7 @@ export const DatabaseTable = ({ showSsn }: Props) => {
                       <TableCell>
                         <Typography
                           color={driver?.tokenized ? 'warning.main' : 'inherit'}
+                          sx={{ wordBreak: 'break-all' }}
                           variant="code"
                         >
                           {driver.ssnFingerprint}
