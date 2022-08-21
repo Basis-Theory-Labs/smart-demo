@@ -3,6 +3,8 @@ ARG node_image=node:14-alpine3.16
 # STAGE 1
 FROM $node_image as builder
 
+ARG USE_COOKIE_SESSION
+ENV USE_COOKIE_SESSION=$USE_COOKIE_SESSION
 ENV NEXT_TELEMETRY_DISABLED=1
 
 WORKDIR /app/
@@ -24,6 +26,9 @@ RUN yarn build
 # are used as apart of the build process
 FROM $node_image as production
 
+ARG USE_COOKIE_SESSION
+ENV USE_COOKIE_SESSION=$USE_COOKIE_SESSION
+
 WORKDIR /app/
 
 COPY package.json yarn.lock ./
@@ -36,6 +41,8 @@ RUN apk update && apk upgrade
 
 RUN npm uninstall npm -g
 
+ARG USE_COOKIE_SESSION
+ENV USE_COOKIE_SESSION=$USE_COOKIE_SESSION
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 

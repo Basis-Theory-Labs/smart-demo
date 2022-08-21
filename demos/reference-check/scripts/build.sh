@@ -1,4 +1,6 @@
 #!/bin/bash
 set -e
 
-docker build . -t reference-check
+docker build . \
+  --build-arg	USE_COOKIE_SESSION=true \
+  -t reference-check
