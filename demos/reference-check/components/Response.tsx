@@ -119,6 +119,9 @@ const Response = ({ data, expanded, onExpanded }: Props) => {
                                       ? 'warning.main'
                                       : 'text.secondary'
                                   }
+                                  sx={{
+                                    wordBreak: 'break-all',
+                                  }}
                                   variant="code"
                                 >
                                   {value as string}
