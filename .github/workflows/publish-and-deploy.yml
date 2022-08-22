@@ -41,10 +41,10 @@ jobs:
           context: basistheory/${{ matrix.demo }}
           image_name: ${{ matrix.demo }}
           image_tag: latest
-          password: $${{secrets.DOCKERHUB_PASSWORD}}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
           push_git_tag: true
           push_image_and_stages: true
-          username: $${{secrets.DOCKERHUB_USERNAME}}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
 
 #  deploy:
 #    needs:
