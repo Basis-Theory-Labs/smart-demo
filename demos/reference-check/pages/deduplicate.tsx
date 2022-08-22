@@ -21,7 +21,6 @@ const Deduplicate = () => (
 export const getServerSideProps = getServerSidePropsWithSession((_, session) =>
   Promise.resolve({
     props: {
-      // eslint-disable-next-line unicorn/no-null
       publicApiKey: session.publicApiKey || null,
     },
   })

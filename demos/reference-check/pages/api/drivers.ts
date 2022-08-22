@@ -5,15 +5,15 @@ import { apiWithSession } from '@/server/session';
 import { Driver, Session } from '@/types';
 
 /**
- * Verifies if the SSN fingerprint is already
+ * Verifies if the ssn is already
  * present in the database
  */
-const isDuplicated = (tenant: string, ssnFingerprint?: string): boolean =>
+const isDuplicated = (tenant: string, ssn?: string): boolean =>
   Boolean(
-    ssnFingerprint &&
+    ssn &&
       findDrivers(tenant, {
-        ssnFingerprint: {
-          $eq: ssnFingerprint,
+        ssn: {
+          $eq: ssn,
         },
       }).length
   );
@@ -21,22 +21,18 @@ const isDuplicated = (tenant: string, ssnFingerprint?: string): boolean =>
 /**
  * Deletes tokens that won't be used
  */
-const cleanUpTokens = async (
-  session: Session,
-  phoneNumber: string,
-  ssn: string
-) => {
+const cleanUpTokens = async (session: Session, ...ids: string[]) => {
   const bt = await new BasisTheory().init(session.privateApiKey);
 
-  await Promise.all([bt.tokens.delete(ssn), bt.tokens.delete(phoneNumber)]);
+  await Promise.all(ids.map((id) => bt.tokens.delete(id)));
 };
 
 const createDriver = async (
   session: Session,
   { name, phoneNumber, tokenized, ssn, ssnFingerprint }: Omit<Driver, 'tenant'>
 ) => {
-  if (tokenized && ssn && isDuplicated(session.id, ssnFingerprint)) {
-    await cleanUpTokens(session, phoneNumber, ssn);
+  if (tokenized && ssn && isDuplicated(session.id, ssn)) {
+    await cleanUpTokens(session, phoneNumber);
 
     throw new ApiError(409, `Duplicate SSN. Fingerprint: ${ssnFingerprint}`);
   }

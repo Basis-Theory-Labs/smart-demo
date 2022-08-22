@@ -67,7 +67,6 @@ const Navigation = () => {
   const { previous, current, next } = useRoutes();
   const router = useRouter();
 
-  /* eslint-disable unicorn/no-null */
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -80,7 +79,6 @@ const Navigation = () => {
     router.push(route);
     handleClose();
   };
-  /* eslint-enable unicorn/no-null */
 
   return (
     <AppBar component="nav" elevation={1} position="static">
