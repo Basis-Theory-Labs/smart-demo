@@ -1,4 +1,4 @@
-name: Pull Request
+name: publish and deploy
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
           DEMOS=$(ls demos | jq -R -s -c 'split("\n")[:-1]')
           echo ::set-output name=demos::${DEMOS}
 
-  build:
+  container-builds:
     needs:
       - read_demos
     runs-on: ubuntu-latest
@@ -46,23 +46,23 @@ jobs:
           push_image_and_stages: false
           username: $${{secrets.DOCKERHUB_USERNAME}}
 
-  deploy:
-    needs:
-      - build
-    runs-on: ubuntu-latest
-    env:
-      HUSKY: 0
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Login via Azure CLI
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_OPERATIONS_CREDENTIALS }}
-
-      - name: Deploy Reference Check
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'btops-prod-reference-check'
-          images: 'basistheory/reference-check:${{ github.sha }}'
+#  deploy:
+#    needs:
+#      - container-builds
+#    runs-on: ubuntu-latest
+#    env:
+#      HUSKY: 0
+#    steps:
+#      - name: Checkout repo
+#        uses: actions/checkout@v3
+#
+#      - name: Login via Azure CLI
+#        uses: azure/login@v1
+#        with:
+#          creds: ${{ secrets.AZURE_OPERATIONS_CREDENTIALS }}
+#
+#      - name: Deploy Reference Check
+#        uses: azure/webapps-deploy@v2
+#        with:
+#          app-name: 'btops-prod-reference-check'
+#          images: 'basistheory/reference-check:${{ github.sha }}'
