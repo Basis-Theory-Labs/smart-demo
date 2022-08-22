@@ -43,7 +43,7 @@ jobs:
           image_tag: latest
           password: $${{secrets.DOCKERHUB_PASSWORD}}
           push_git_tag: true
-          push_image_and_stages: false
+          push_image_and_stages: true
           username: $${{secrets.DOCKERHUB_USERNAME}}
 
 #  deploy:
