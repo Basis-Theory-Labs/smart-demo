@@ -395,10 +395,10 @@
     snake-case "^3.0.4"
     snakecase-keys "^3.2.1"
 
-"@basis-theory/basis-theory-react@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@basis-theory/basis-theory-react/-/basis-theory-react-1.4.1.tgz#d3fd37cf9132182249d2dcc97ba860c8069cf4cc"
-  integrity sha512-eShXu+HShyfKVclGsGvEVIiGnkOVJhy/0C5nAAa3E1AdLpZAb+xcU3wVsSaysCmV1+Y9zpge+cmmmTga7VN36g==
+"@basis-theory/basis-theory-react@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@basis-theory/basis-theory-react/-/basis-theory-react-1.4.2.tgz#a67c04c918b35da9f10f359ca873dde85da3328c"
+  integrity sha512-lvZU96vajcwghewv5w4p39oReNlEbedMuDL376IMS6M7r/C0VCjSZ6aJbCwlHe3xAQvfFx82/Sc/pB4KiyLtBw==
   dependencies:
     "@basis-theory/basis-theory-js" "^1.43.0"
 
