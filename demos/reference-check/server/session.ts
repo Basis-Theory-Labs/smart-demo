@@ -1,4 +1,3 @@
-import crypto from 'crypto';
 import type {
   GetServerSideProps,
   GetServerSidePropsResult,
@@ -17,6 +16,7 @@ import {
   seedDrivers,
 } from '@/server/db';
 import { Session } from '@/types';
+import { randomHex } from './utils';
 
 const SESSION_COOKIE_NAME = 'DriveWellSession';
 const DEFAULT_SESSION = 'default';
@@ -56,9 +56,7 @@ const getSession = (req: {
 };
 
 const createSession = (res: NextApiResponse, keys: Omit<Session, 'id'>) => {
-  const id = isUseCookieSession()
-    ? crypto.randomBytes(20).toString('hex')
-    : DEFAULT_SESSION;
+  const id = isUseCookieSession() ? randomHex() : DEFAULT_SESSION;
 
   insertSession({
     id,

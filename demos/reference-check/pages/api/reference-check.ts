@@ -2,6 +2,9 @@ import axios from 'axios';
 import { createDriver } from '@/pages/api/drivers';
 import { ApiError } from '@/server/ApiError';
 import { apiWithSession } from '@/server/session';
+import { randomHex } from '@/server/utils';
+
+const REFERENCE_CHECK_AUTH_KEY = randomHex();
 
 const referenceCheckApi = apiWithSession(async (req, res, session) => {
   if (req.method !== 'POST') {
@@ -24,7 +27,8 @@ const referenceCheckApi = apiWithSession(async (req, res, session) => {
     headers: {
       'BT-API-KEY': session.privateApiKey,
       'BT-PROXY-URL': 'https://echo.basistheory.com/anything',
-      'DRIVE-WELL-AUTH': session.id,
+      'RC-AUTH-KEY': REFERENCE_CHECK_AUTH_KEY,
+      // 'BT-TRACE-ID': randomHex(),
     },
     data: {
       fullName: driver.name,
