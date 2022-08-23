@@ -38,8 +38,8 @@ jobs:
       - name: Build
         uses: whoan/docker-build-with-cache-action@v5
         with:
-          context: basistheory/${{ matrix.demo }}
-          image_name: ${{ matrix.demo }}
+          context: demos/${{ matrix.demo }}
+          image_name: basistheory/${{ matrix.demo }}-demo
           image_tag: latest
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           push_git_tag: true
