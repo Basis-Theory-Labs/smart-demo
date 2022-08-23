@@ -27,7 +27,7 @@ const referenceCheckApi = apiWithSession(async (req, res, session) => {
       'DRIVE-WELL-AUTH': session.id,
     },
     data: {
-      name: driver.name,
+      fullName: driver.name,
       phoneNumber: {
         full: `+1 {{${driver.phoneNumber}}}`,
         countryCode: '+1',
@@ -35,7 +35,7 @@ const referenceCheckApi = apiWithSession(async (req, res, session) => {
         exchangeCode: `{{ ${driver.phoneNumber}  | split: '-' | last }}`,
         lineNumber: `{{ ${driver.phoneNumber} | split: ' ' | last | split: '-' | first }}`,
       },
-      ssn: `{{ ${driver.ssn} | remove: '-' }}`,
+      socialSecurityNumber: `{{ ${driver.ssn} | remove: '-' }}`,
     },
   });
 
