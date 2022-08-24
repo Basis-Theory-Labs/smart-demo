@@ -69,4 +69,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'btops-prod-reference-check'
-          images: 'basistheory/${{ matrix.demo }}-demo:${{ github.sha }}'
+          images: 'basistheory/${{ matrix.demo }}-demo:latest'
