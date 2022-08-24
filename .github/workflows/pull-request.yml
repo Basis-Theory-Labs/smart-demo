@@ -83,10 +83,3 @@ jobs:
           retention-days: 1
           path: |
             /tmp/${{ matrix.demo }}.tar
-
-      - name: Build
-        uses: whoan/docker-build-with-cache-action@v5
-        with:
-          push_image_and_stages: false
-          context: demos/${{ matrix.demo }}
-          image_name: ${{ matrix.demo }}
