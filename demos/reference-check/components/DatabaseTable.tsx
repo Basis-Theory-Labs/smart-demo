@@ -74,6 +74,7 @@ export const DatabaseTable = ({ showSsn }: Props) => {
                   <TableCell>
                     <Typography
                       color={driver?.tokenized ? 'warning.main' : 'inherit'}
+                      sx={{ whiteSpace: 'nowrap' }}
                       variant="code"
                     >
                       {driver.phoneNumber}
