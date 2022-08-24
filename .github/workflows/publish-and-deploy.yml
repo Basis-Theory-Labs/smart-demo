@@ -46,23 +46,23 @@ jobs:
           push_image_and_stages: true
           username: ${{ secrets.DOCKERHUB_USERNAME }}
 
-#  deploy:
-#    needs:
-#      - container-builds
-#    runs-on: ubuntu-latest
-#    env:
-#      HUSKY: 0
-#    steps:
-#      - name: Checkout repo
-#        uses: actions/checkout@v3
-#
-#      - name: Login via Azure CLI
-#        uses: azure/login@v1
-#        with:
-#          creds: ${{ secrets.AZURE_OPERATIONS_CREDENTIALS }}
-#
-#      - name: Deploy Reference Check
-#        uses: azure/webapps-deploy@v2
-#        with:
-#          app-name: 'btops-prod-reference-check'
-#          images: 'basistheory/reference-check:${{ github.sha }}'
+  deploy:
+    needs:
+      - container-builds
+    runs-on: ubuntu-latest
+    env:
+      HUSKY: 0
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_OPERATIONS_CREDENTIALS }}
+
+      - name: Deploy Reference Check
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'btops-prod-reference-check'
+          images: 'basistheory/reference-check:${{ github.sha }}'
