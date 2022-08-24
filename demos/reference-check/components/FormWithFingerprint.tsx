@@ -47,13 +47,14 @@ export const FormWithFingerprint = ({
             id: '{{ data | alias_preserve_format }}',
             type: 'token',
             data: phoneNumber,
-            expiresAt: ttl(),
+            expires_at: ttl(),
           },
           ssn: {
             id: '{{ data | alias_preserve_format }}',
             type: 'social_security_number',
             data: ssn,
-            expiresAt: ttl(),
+            expires_at: ttl(),
+            deduplicate_token: true,
           },
         });
 

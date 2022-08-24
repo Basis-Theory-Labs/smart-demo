@@ -46,7 +46,7 @@ export const FormWithElements = ({
           ...(useAlias ? { id: '{{ data | alias_preserve_format }}' } : {}),
           type: 'token',
           data: phoneNumber,
-          expiresAt: ttl(),
+          expires_at: ttl(),
         });
 
         const { data } = await axios.post(path, {

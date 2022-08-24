@@ -37,14 +37,14 @@ Makes a `POST /api/migrate` call that will start the server process:
 2. Bulk tokenizes phone numbers with format preserving alias;
 3. Bulk updates the driver records with token ids as phone numbers;
 
-Relevant source code: [pages/api/migration.ts](pages/api/migrate.ts)
+Relevant source code: [pages/api/migrate.ts](pages/api/migrate.ts)
 
 ### Deduplicate `/deduplicate`
 
 Shows the original form with "Phone Number" and "SSN" inputs as `TextElement`.
 
 When it is submitted, it will perform tokenization in the frontend and send the tokens + "Name" to the backend, where:
-1. It checks for an existing SSN fingerprint in the local database;
+1. It checks for an existing SSN in the local database;
 2. If it finds an existing record, it will reject the request and display a message to the user;
 3. Otherwise, it inserts the driver in the database;
 

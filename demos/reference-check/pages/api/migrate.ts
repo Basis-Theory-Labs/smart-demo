@@ -26,7 +26,7 @@ const migrateApi = apiWithSession(async (req, res, session) => {
         type: 'token',
         id: '{{ data | alias_preserve_format }}',
         data: driver.phoneNumber,
-        expiresAt: ttl(),
+        expires_at: ttl(),
       }))
     );
 
