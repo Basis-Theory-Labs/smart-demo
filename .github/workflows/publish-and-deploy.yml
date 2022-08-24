@@ -62,7 +62,6 @@ jobs:
             basistheory/${{ matrix.demo }}-demo:${{ github.sha }}
           build-args: |
             USE_COOKIE_SESSION=true
-          outputs: type=docker,dest=/tmp/${{ matrix.demo }}.tar
           cache-from: type=local,src=/tmp/.buildx-${{ matrix.demo }}-cache
           cache-to: type=local,dest=/tmp/.buildx-${{ matrix.demo }}-cache-new
 
