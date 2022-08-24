@@ -50,6 +50,9 @@ jobs:
     needs:
       - container-builds
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        demo: ${{ fromJSON(needs.read_demos.outputs.demos) }}
     env:
       HUSKY: 0
     steps:
@@ -65,4 +68,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'btops-prod-reference-check'
-          images: 'basistheory/reference-check:${{ github.sha }}'
+          images: 'basistheory/${{ matrix.demo }}-demo:${{ github.sha }}'
