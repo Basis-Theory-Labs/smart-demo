@@ -75,11 +75,3 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-${{ matrix.demo }}-cache
           mv /tmp/.buildx-${{ matrix.demo }}-cache-new /tmp/.buildx-${{ matrix.demo }}-cache
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: docker-images
-          retention-days: 1
-          path: |
-            /tmp/${{ matrix.demo }}.tar
