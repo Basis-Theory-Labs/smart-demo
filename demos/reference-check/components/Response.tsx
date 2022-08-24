@@ -26,7 +26,7 @@ interface Props {
   onExpanded: (expanded: boolean) => unknown;
 }
 
-const specialHeaders = new Set(['BT-TRACE-ID', 'DRIVE-WELL-AUTH']);
+const specialHeaders = new Set(['BT-TRACE-ID', 'RC-AUTH-KEY']);
 
 const Response = ({ data, expanded, onExpanded }: Props) => {
   const [tab, setTab] = useState('payload');
