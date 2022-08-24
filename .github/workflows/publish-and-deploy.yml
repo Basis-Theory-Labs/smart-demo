@@ -48,6 +48,7 @@ jobs:
 
   deploy:
     needs:
+      - read_demos
       - container-builds
     runs-on: ubuntu-latest
     strategy:
