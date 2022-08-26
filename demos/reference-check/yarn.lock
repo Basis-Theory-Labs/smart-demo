@@ -382,10 +382,10 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
-"@basis-theory/basis-theory-js@^1.43.0", "@basis-theory/basis-theory-js@^1.47.0":
-  version "1.47.0"
-  resolved "https://registry.yarnpkg.com/@basis-theory/basis-theory-js/-/basis-theory-js-1.47.0.tgz#28689adcafb30bcf0abead964f0666eb150d28ab"
-  integrity sha512-5Osqp/gAX3TY+mRbQbO0zTzSbev8eH+kWs9PMqBqg6+2CQf0mW0g4A+NgDDeEE4bbgWo0TjB8woRTrh5IUdogA==
+"@basis-theory/basis-theory-js@^1.48.0":
+  version "1.48.0"
+  resolved "https://registry.yarnpkg.com/@basis-theory/basis-theory-js/-/basis-theory-js-1.48.0.tgz#23ee7412c0f061cb6db53c5ab1adb991ecc1a1c6"
+  integrity sha512-vef6Mc/Oyb5CIPLdjDUuoAFsWvPMbz1p77vO18lk76EA4zpGniQg2Q3JOUkbpMKcFIcmGzRAbMcRcV4B0m5uaw==
   dependencies:
     axios "^0.21.2"
     camelcase-keys "^6.2.2"
@@ -395,12 +395,12 @@
     snake-case "^3.0.4"
     snakecase-keys "^3.2.1"
 
-"@basis-theory/basis-theory-react@^1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@basis-theory/basis-theory-react/-/basis-theory-react-1.4.2.tgz#a67c04c918b35da9f10f359ca873dde85da3328c"
-  integrity sha512-lvZU96vajcwghewv5w4p39oReNlEbedMuDL376IMS6M7r/C0VCjSZ6aJbCwlHe3xAQvfFx82/Sc/pB4KiyLtBw==
+"@basis-theory/basis-theory-react@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@basis-theory/basis-theory-react/-/basis-theory-react-1.5.1.tgz#bb4716516883c2f1ba01bd3029a7507e84b5c305"
+  integrity sha512-oHUP1updbbEtng+2AaWwsW4bFn/BVj9lHisEtzTVErmdXX/7KklVyJRu9DkNzDfLIQjpx2Els8l8stmSKIgiXg==
   dependencies:
-    "@basis-theory/basis-theory-js" "^1.43.0"
+    "@basis-theory/basis-theory-js" "^1.48.0"
 
 "@basis-theory/eslint-config@^1.0.13":
   version "1.0.13"
