@@ -1,5 +1,6 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 import { TextElement, useBasisTheory } from '@basis-theory/basis-theory-react';
+import type { TextElement as ITextElement } from '@basis-theory/basis-theory-react/types';
 import { LoadingButton } from '@mui/lab';
 import {
   Box,
@@ -23,11 +24,12 @@ export const FormWithElements = ({
 }: Props) => {
   const [name, setName] = useState('');
   const [isPhoneNumberComplete, setPhoneNumberComplete] = useState(false);
-
   const [loading, setLoading] = useState(false);
   const [useAlias, setUseAlias] = useState(false);
   const { bt } = useBasisTheory();
   const theme = useTheme();
+  const phoneNumberRef = useRef<ITextElement>(null);
+
   const canSubmit = bt && name.length && isPhoneNumberComplete;
 
   const submit = async (event?: FormEvent) => {
@@ -41,11 +43,10 @@ export const FormWithElements = ({
       setLoading(true);
 
       try {
-        const phoneNumber = bt.getElement('phoneNumber');
         const token = await bt.tokens.create({
           ...(useAlias ? { id: '{{ data | alias_preserve_format }}' } : {}),
           type: 'token',
-          data: phoneNumber,
+          data: phoneNumberRef.current,
           expires_at: ttl(),
         });
 
@@ -58,7 +59,7 @@ export const FormWithElements = ({
         onSubmit?.(data);
 
         setName('');
-        phoneNumber?.clear();
+        phoneNumberRef.current?.clear();
       } finally {
         setLoading(false);
       }
@@ -95,6 +96,7 @@ export const FormWithElements = ({
             }
           }}
           placeholder="Phone Number"
+          ref={phoneNumberRef}
           style={{
             fonts: [INTER_FONT],
             base: {
