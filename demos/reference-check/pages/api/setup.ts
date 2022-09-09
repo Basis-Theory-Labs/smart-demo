@@ -1,5 +1,6 @@
 import type { NextApiHandler } from 'next';
 import { ApiError } from '@/server/ApiError';
+import { logger } from '@/server/logger';
 import { replaceSession } from '@/server/session';
 
 const setupApi: NextApiHandler = (req, res) => {
@@ -12,6 +13,7 @@ const setupApi: NextApiHandler = (req, res) => {
   }
 
   replaceSession(req, res);
+  logger.info('Created a new session for provided keys.');
 
   res.status(200).end();
 };

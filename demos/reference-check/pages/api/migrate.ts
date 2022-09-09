@@ -2,6 +2,7 @@ import { BasisTheory } from '@basis-theory/basis-theory-js';
 import { ttl } from '@/components/utils';
 import { ApiError } from '@/server/ApiError';
 import { findDrivers, updateDrivers } from '@/server/db';
+import { logger } from '@/server/logger';
 import { apiWithSession } from '@/server/session';
 
 const migrateApi = apiWithSession(async (req, res, session) => {
@@ -9,7 +10,7 @@ const migrateApi = apiWithSession(async (req, res, session) => {
     throw new ApiError(404);
   }
 
-  // finds all non tokenized drives
+  logger.info(`Finding all drivers with plain-text data.`);
   const drivers = findDrivers(session.id, {
     tokenized: {
       $ne: true,
@@ -17,27 +18,32 @@ const migrateApi = apiWithSession(async (req, res, session) => {
   });
 
   if (drivers.length) {
+    logger.info(`${drivers.length} records found.`);
+
     // initializes SDK with the API key
     const bt = await new BasisTheory().init(session.privateApiKey);
 
-    // tokenizes bulk array
+    logger.info(`Tokenizing bulk records.`);
     const tokens = await bt.tokenize(
       drivers.map((driver) => ({
         type: 'token',
         id: '{{ data | alias_preserve_format }}',
         data: driver.phoneNumber,
         expires_at: ttl(),
+        search_indexes: ['{{ data }}'],
       }))
     );
 
-    // updates database
+    logger.info(`Updating plaintext with token IDs.`);
     updateDrivers(
       drivers.map((driver, index) => ({
         ...driver,
-        phoneNumber: tokens[index].id,
+        phoneNumber: (tokens as any)[index].id,
         tokenized: true,
       }))
     );
+  } else {
+    logger.info(`No records found.`);
   }
 
   res.status(200).end();

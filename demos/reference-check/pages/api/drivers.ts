@@ -1,6 +1,7 @@
 import { BasisTheory } from '@basis-theory/basis-theory-js';
 import { ApiError } from '@/server/ApiError';
 import { findDrivers, insertDriver } from '@/server/db';
+import { logger } from '@/server/logger';
 import { apiWithSession } from '@/server/session';
 import { Driver, Session } from '@/types';
 
@@ -32,18 +33,23 @@ const createDriver = async (
   { name, phoneNumber, tokenized, ssn, ssnFingerprint }: Omit<Driver, 'tenant'>
 ) => {
   if (tokenized && ssn && isDuplicated(session.id, ssn)) {
+    logger.warn('Duplicated fingerprint detected.');
     await cleanUpTokens(session, phoneNumber);
 
     throw new ApiError(409, `Duplicate SSN. Fingerprint: ${ssnFingerprint}`);
   }
 
-  return insertDriver(session.id, {
+  const driver = insertDriver(session.id, {
     name,
     phoneNumber,
     ssn,
     ssnFingerprint,
     tokenized,
   });
+
+  logger.info(`Driver record added successfully.`);
+
+  return driver;
 };
 
 const driversApi = apiWithSession(async (req, res, session) => {

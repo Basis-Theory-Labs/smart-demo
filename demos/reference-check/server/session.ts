@@ -15,6 +15,7 @@ import {
   insertSession,
   seedDrivers,
 } from '@/server/db';
+import { logger } from '@/server/logger';
 import { Session } from '@/types';
 import { randomHex } from './utils';
 
@@ -160,6 +161,10 @@ const apiWithSession =
 
         return;
       }
+
+      logger.error(error);
+
+      res.status(500).end();
     }
   };
 

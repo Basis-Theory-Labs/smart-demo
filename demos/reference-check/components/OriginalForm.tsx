@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { TextField } from '@mui/material';
+import axios from 'axios';
 import { MaskedTextField } from '@/components/MaskedTextField';
 
 export const OriginalForm = () => {
@@ -20,15 +21,9 @@ export const OriginalForm = () => {
     setLoading(true);
 
     try {
-      await fetch('/api/drivers', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          phoneNumber,
-        }),
+      await axios.post('/api/drivers', {
+        name,
+        phoneNumber,
       });
       setName('');
       setPhoneNumber('');

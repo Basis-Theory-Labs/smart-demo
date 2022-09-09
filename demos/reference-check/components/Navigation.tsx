@@ -43,6 +43,10 @@ const routes: Route[] = [
     route: '/proxy',
     title: 'Proxy',
   },
+  {
+    route: '/search',
+    title: 'Search',
+  },
 ];
 
 interface CurrentRoutes {

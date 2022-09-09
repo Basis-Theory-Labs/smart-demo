@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { createDriver } from '@/pages/api/drivers';
 import { ApiError } from '@/server/ApiError';
+import { logger } from '@/server/logger';
 import { apiWithSession } from '@/server/session';
 import { randomHex } from '@/server/utils';
 
 const REFERENCE_CHECK_AUTH_KEY = randomHex();
+const REFERENCE_CHECK_API_ENDPOINT = 'https://echo.basistheory.com/anything';
 
 const referenceCheckApi = apiWithSession(async (req, res, session) => {
   if (req.method !== 'POST') {
@@ -21,12 +23,12 @@ const referenceCheckApi = apiWithSession(async (req, res, session) => {
     ssnFingerprint,
   });
 
-  const proxyRes = await axios.request({
+  const { data } = await axios.request({
     url: 'https://api.basistheory.com/proxy',
     method: 'POST',
     headers: {
       'BT-API-KEY': session.privateApiKey,
-      'BT-PROXY-URL': 'https://echo.basistheory.com/anything',
+      'BT-PROXY-URL': REFERENCE_CHECK_API_ENDPOINT,
       'RC-AUTH-KEY': REFERENCE_CHECK_AUTH_KEY,
       // 'BT-TRACE-ID': randomHex(),
     },
@@ -43,9 +45,11 @@ const referenceCheckApi = apiWithSession(async (req, res, session) => {
     },
   });
 
-  res.status(201).json(proxyRes.data);
+  logger.info(
+    `Forwarded driver (${driver.id}) to ${REFERENCE_CHECK_API_ENDPOINT}.`
+  );
 
-  return;
+  res.status(201).json(data);
 });
 
 export default referenceCheckApi;
