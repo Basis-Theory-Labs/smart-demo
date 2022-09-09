@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { createDriver } from '@/pages/api/drivers';
 import { ApiError } from '@/server/ApiError';
-import { logger } from '@/server/logger';
 import { apiWithSession } from '@/server/session';
 import { randomHex } from '@/server/utils';
 
@@ -44,10 +43,6 @@ const referenceCheckApi = apiWithSession(async (req, res, session) => {
       socialSecurityNumber: `{{ ${driver.ssn} | remove: '-' }}`,
     },
   });
-
-  logger.info(
-    `Forwarded driver (${driver.id}) to ${REFERENCE_CHECK_API_ENDPOINT}.`
-  );
 
   res.status(201).json(data);
 });
