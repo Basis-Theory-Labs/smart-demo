@@ -43,18 +43,20 @@ export const FormWithFingerprint = ({
       setLoading(true);
 
       try {
-        const tokens = await bt.tokenize({
+        const tokens: any = await bt.tokenize({
           phoneNumber: {
             id: '{{ data | alias_preserve_format }}',
             type: 'token',
             data: phoneNumberRef.current,
             expires_at: ttl(),
+            search_indexes: ['{{ data }}'],
           },
           ssn: {
             id: '{{ data | alias_preserve_format }}',
             type: 'social_security_number',
             data: ssnRef.current,
             expires_at: ttl(),
+            search_indexes: ['{{ data }}'],
             deduplicate_token: true,
           },
         });

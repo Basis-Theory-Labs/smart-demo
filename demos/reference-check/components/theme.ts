@@ -40,6 +40,9 @@ const blissDarkOptions: ThemeOptions = {
     h5: {
       fontFamily: "'Outfit', sans-serif",
     },
+    subtitle1: {
+      fontWeight: '600',
+    },
     subtitle2: {},
     code: {
       fontFamily: "'Source Code Pro', monospace",
@@ -93,12 +96,28 @@ const yourApplicationOptions: ThemeOptions = {
       paper: '#F9F9FF',
     },
     grey: {
+      '50': '#E5E9FF',
+      '100': '#EDF0FF',
       '200': '#EAEDFF',
       '300': '#C4C8E0',
     },
   },
   typography: blissDarkOptions.typography,
   components: {
+    MuiTableHead: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.grey['50'],
+        }),
+      },
+    },
+    MuiTableBody: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.grey['100'],
+        }),
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

@@ -6,13 +6,13 @@ import type {
 import { NextApiHandler } from 'next';
 import { NextApiResponse } from 'next/dist/shared/lib/utils';
 import { GetServerSidePropsContext } from 'next/types';
-import { setCookie, destroyCookie } from 'nookies';
+import { destroyCookie, setCookie } from 'nookies';
 import { ApiError } from '@/server/ApiError';
 import {
-  removeDrivers,
   findSession,
-  removeSession,
   insertSession,
+  removeDrivers,
+  removeSession,
   seedDrivers,
 } from '@/server/db';
 import { Session } from '@/types';
@@ -160,6 +160,11 @@ const apiWithSession =
 
         return;
       }
+
+      // eslint-disable-next-line no-console
+      console.error(error);
+
+      res.status(500).end();
     }
   };
 

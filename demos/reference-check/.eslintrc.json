@@ -8,7 +8,8 @@
       {
         "allow": [
           "expires_at",
-          "deduplicate_token"
+          "deduplicate_token",
+          "search_indexes"
         ]
       }
     ]
