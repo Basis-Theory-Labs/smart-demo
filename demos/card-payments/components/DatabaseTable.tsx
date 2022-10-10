@@ -39,40 +39,39 @@ export const DatabaseTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map?.((driver) => (
-                <TableRow
-                  key={driver.id}
-                  sx={{ td: { color: 'text.secondary' } }}
-                >
+              {data?.map?.((checkout) => (
+                <TableRow key={checkout.id}>
                   <TableCell>
-                    <Typography variant="code">{driver.id}</Typography>
+                    <Typography variant="code">{checkout.id}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="code">{driver.name}</Typography>
+                    <Typography>{checkout.name}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="code">
-                      {driver.homePolicyType}
-                      <br />
+                    {checkout.homePolicyType}
+                    <br />
+                    <Typography color="text.secondary">
                       {'$ '}
-                      {driver.homePolicyValue}
+                      {checkout.homePolicyValue}
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="code">
-                      {driver.autoPolicyType}
-                      <br />
+                    {checkout.autoPolicyType}
+                    <br />
+                    <Typography color="text.secondary">
                       {'$ '}
-                      {driver.autoPolicyValue}
+                      {checkout.autoPolicyValue}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography
-                      color={driver?.tokenized ? 'warning.main' : 'inherit'}
+                      color={
+                        checkout?.tokenized ? 'warning.main' : 'text.secondary'
+                      }
                       sx={{ wordBreak: 'break-all' }}
                       variant="code"
                     >
-                      {driver.paymentToken}
+                      {checkout.paymentToken}
                     </Typography>
                   </TableCell>
                 </TableRow>

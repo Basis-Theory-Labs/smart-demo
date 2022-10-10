@@ -31,8 +31,6 @@ export const OriginalForm = () => {
     try {
       const { token, error } = await stripe.createToken(cardElement);
 
-      console.log(token);
-
       if (error) {
         throw error;
       }

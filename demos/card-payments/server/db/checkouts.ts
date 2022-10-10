@@ -11,7 +11,7 @@ const seedCheckouts = (tenant: string) => {
     autoPolicyType: 'Premium',
     homePolicyValue: 3000,
     homePolicyType: 'Standard',
-    paymentToken: 'tok_4hhyft9srlbmq3sn5qr5vrjs',
+    paymentToken: 'card_4hhyft9srlbmq3sn5qr5vrjs',
     tenant,
   } as Checkout);
 
@@ -21,7 +21,7 @@ const seedCheckouts = (tenant: string) => {
     autoPolicyType: 'Premium',
     homePolicyValue: 5250,
     homePolicyType: 'Premium',
-    paymentToken: 'tok_n5ejt1hlsrupz5qicqlo8d4f',
+    paymentToken: 'card_n5ejt1hlsrupz5qicqlo8d4f',
     tenant,
   } as Checkout);
 
