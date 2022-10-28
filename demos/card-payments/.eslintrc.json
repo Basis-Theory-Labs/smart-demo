@@ -9,7 +9,13 @@
         "allow": [
           "expires_at",
           "deduplicate_token",
-          "search_indexes"
+          "search_indexes",
+          "expiration_month",
+          "expiration_year",
+          "exp_month",
+          "exp_year",
+          "stripe_customer",
+          "stripe_token"
         ]
       }
     ]

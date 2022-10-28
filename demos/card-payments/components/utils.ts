@@ -10,6 +10,13 @@ const chance = new Chance();
  */
 const ttl = (): string => new Date(Date.now() + 60 * 60 * 1000).toISOString();
 
+const generateCardId = () =>
+  `card_${chance.string({
+    length: 24,
+    alpha: true,
+    numeric: true,
+  })}`;
+
 const policies = ['Premium', 'Standard', 'Basic'];
 
 const generatePolicy = () => ({
@@ -56,4 +63,4 @@ const useCart = (): {
   };
 };
 
-export { ttl, useCart };
+export { ttl, useCart, generateCardId };

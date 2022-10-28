@@ -36,16 +36,8 @@ const routes: Route[] = [
     title: 'Migration',
   },
   {
-    route: '/deduplicate',
-    title: 'Deduplicate',
-  },
-  {
     route: '/proxy',
     title: 'Proxy',
-  },
-  {
-    route: '/search',
-    title: 'Search',
   },
 ];
 

@@ -6,7 +6,7 @@ import { Paper } from '@mui/material';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { Cart } from '@/components/Cart';
-import { ttl, useCart } from './utils';
+import { generateCardId, ttl, useCart } from './utils';
 
 export const FormWithElements = () => {
   const [loading, setLoading] = useState(false);
@@ -31,6 +31,7 @@ export const FormWithElements = () => {
 
     try {
       const token = await bt.tokens.create({
+        id: generateCardId(),
         type: 'card',
         data: cardElement,
         expiresAt: ttl(),

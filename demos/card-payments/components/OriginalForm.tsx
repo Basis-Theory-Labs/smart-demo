@@ -37,7 +37,7 @@ export const OriginalForm = () => {
 
       await axios.post('/api/checkouts', {
         ...cart,
-        paymentToken: token.id,
+        paymentToken: token?.id,
       });
     } catch (error: any) {
       const message = error.message || error.response?.data?.message;
