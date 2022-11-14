@@ -2,7 +2,7 @@
 
 A company is doing reference checks for drivers. They have an existing form that takes the name and phone number for the driver. But they find out that the phone number is now considered PII and they aren’t able to store it, so they need a solution that will ensure their application does not touch the data.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Basis-Theory-Labs/smart-demo/tree/master/demos/reference-check)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Basis-Theory-Labs/smart-demo/tree/master/demos/card-payments)
 
 ## Pages
 
@@ -54,10 +54,10 @@ Relevant source code:
 
 ### Proxy `/proxy`
 
-Shows [Deduplicate form](#deduplicate-deduplicate), but submits to `POST /reference-check`, which will:
+Shows [Deduplicate form](#deduplicate-deduplicate), but submits to `POST /card-payments`, which will:
 1. Perform same steps as deduplicate;
 2. Invoke Basis Theory Proxy passing detokenized data to Basis Theory Echo server;
 3. Show the downstream API response in the UI, which is the request it received, highlighting the special headers;
 
 Relevant source code:
-- [pages/api/reference-check.ts](pages/api/reference-check.ts)
+- [pages/api/card-payments.ts](pages/api/card-payments.ts)

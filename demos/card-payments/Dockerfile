@@ -16,6 +16,7 @@ COPY next.config.js ./
 COPY tsconfig.json ./
 COPY public ./public/
 COPY types ./types/
+COPY stripe_migration_data.json ./
 COPY server ./server/
 COPY pages ./pages/
 COPY components ./components/

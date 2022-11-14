@@ -48,6 +48,7 @@ const migrateApi = apiWithSession(async (req, res, session) => {
             ...address,
           },
           expires_at: ttl(),
+          deduplicate_token: true,
         })
       );
 
