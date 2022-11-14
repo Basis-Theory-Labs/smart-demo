@@ -29,10 +29,7 @@ export const OriginalForm = () => {
     setLoading(true);
 
     try {
-      const { paymentMethod, error } = await stripe.createPaymentMethod({
-        type: 'card',
-        card: cardElement,
-      });
+      const { token, error } = await stripe.createToken(cardElement);
 
       if (error) {
         throw error;
@@ -40,7 +37,7 @@ export const OriginalForm = () => {
 
       await axios.post('/api/checkouts', {
         ...cart,
-        paymentToken: paymentMethod?.id,
+        paymentToken: token?.id,
       });
     } catch (error: any) {
       const message = error.message || error.response?.data?.message;

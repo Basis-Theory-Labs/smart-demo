@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Link,
   Paper,
   Table,
   TableBody,
@@ -18,7 +19,11 @@ import { TableHeadPaper } from './TableHeadPaper';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const DatabaseTable = () => {
+interface Props {
+  onPaymentSelect?: (paymentToken: string) => unknown;
+}
+
+export const DatabaseTable = ({ onPaymentSelect }: Props) => {
   const { data } = useSWR<Checkout[]>('/api/checkouts', fetcher, {
     refreshInterval: 100,
   });
@@ -64,15 +69,31 @@ export const DatabaseTable = () => {
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography
-                      color={
-                        checkout?.tokenized ? 'warning.main' : 'text.secondary'
-                      }
-                      sx={{ wordBreak: 'break-all' }}
-                      variant="code"
-                    >
-                      {checkout.paymentToken}
-                    </Typography>
+                    {checkout.tokenized ? (
+                      onPaymentSelect ? (
+                        <Link
+                          component="button"
+                          onClick={() => onPaymentSelect(checkout.paymentToken)}
+                          underline="hover"
+                        >
+                          <Typography variant="code">
+                            {checkout.paymentToken}
+                          </Typography>
+                        </Link>
+                      ) : (
+                        <Typography color="warning.main" variant="code">
+                          {checkout.paymentToken}
+                        </Typography>
+                      )
+                    ) : (
+                      <Typography
+                        color="text.secondary"
+                        sx={{ wordBreak: 'break-all' }}
+                        variant="code"
+                      >
+                        {checkout.paymentToken}
+                      </Typography>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

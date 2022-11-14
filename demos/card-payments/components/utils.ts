@@ -8,7 +8,14 @@ const chance = new Chance();
  * Generates a ISO 8601 String
  * of a date 1 hour from now.
  */
-const ttl = (): string => new Date(Date.now() + 60 * 60 * 1000).toISOString();
+const ttl = (): string =>
+  new Date(
+    Date.now() +
+      1000 * // millis
+        60 * // seconds
+        60 * // minutes
+        6 // hours
+  ).toISOString();
 
 const generateCardId = () =>
   `card_${chance.string({

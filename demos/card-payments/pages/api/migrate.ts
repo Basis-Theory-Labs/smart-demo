@@ -26,6 +26,9 @@ const migrateApi = apiWithSession(async (req, res, session) => {
     paymentToken: {
       $in: stripeCardTokens,
     },
+    tokenized: {
+      $ne: true,
+    },
   });
 
   if (checkouts.length) {
