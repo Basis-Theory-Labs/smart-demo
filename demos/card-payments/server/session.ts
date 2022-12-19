@@ -74,7 +74,7 @@ const createSession = (res: NextApiResponse, keys: Omit<Session, 'id'>) => {
       maxAge: 60 * 60, // 1 hour session
       secure: true,
       path: '/',
-      sameSite: 'lax',
+      sameSite: 'none',
     }
   );
 
