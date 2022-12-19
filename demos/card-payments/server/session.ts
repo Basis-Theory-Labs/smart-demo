@@ -18,11 +18,11 @@ import {
 import { Session } from '@/types';
 import { randomHex } from './utils';
 
-const SESSION_COOKIE_NAME = 'DriveWellSession';
+const SESSION_COOKIE_NAME = 'MightyInsuranceSession';
 const DEFAULT_SESSION = 'default';
 
 // eslint-disable-next-line node/no-process-env
-const isUseCookieSession = () => process.env.USE_COOKIE_SESSION === 'true';
+const isUseDefaultSession = () => process.env.USE_DEFAULT_SESSION === 'true';
 
 const getSession = (req: {
   cookies: Partial<Record<string, string>>;
@@ -30,9 +30,9 @@ const getSession = (req: {
   | { valid: false; session?: never }
   | { valid: false; session: string }
   | { valid: true; session: Session } => {
-  const id = isUseCookieSession()
-    ? req.cookies[SESSION_COOKIE_NAME]
-    : DEFAULT_SESSION;
+  const id = isUseDefaultSession()
+    ? DEFAULT_SESSION
+    : req.cookies[SESSION_COOKIE_NAME];
 
   if (id) {
     const session = findSession(id);
@@ -56,7 +56,7 @@ const getSession = (req: {
 };
 
 const createSession = (res: NextApiResponse, keys: Omit<Session, 'id'>) => {
-  const id = isUseCookieSession() ? randomHex() : DEFAULT_SESSION;
+  const id = isUseDefaultSession() ? DEFAULT_SESSION : randomHex();
 
   insertSession({
     id,
